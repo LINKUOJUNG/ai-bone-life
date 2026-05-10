@@ -1,6 +1,5 @@
 {{ define "main" }}
 <style>
-/* ── 商城頁面樣式 ── */
 .shopee-hero {
   background: linear-gradient(135deg, #0a0a0a 0%, #0d1a0d 60%, #0a0a0a 100%);
   border-bottom: 1px solid #1f2d1f;
@@ -10,165 +9,85 @@
   overflow: hidden;
 }
 .shopee-hero::before {
-  content: '';
+  content: \'\';
   position: absolute; inset: 0;
   background: radial-gradient(ellipse at 50% 0%, rgba(80,250,123,0.08) 0%, transparent 70%);
 }
-.shopee-hero h1 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  font-weight: 800;
-  color: #f8f8f2;
-  margin-bottom: 8px;
-}
+.shopee-hero h1 { font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 800; color: #f8f8f2; margin-bottom: 8px; }
 .shopee-hero h1 span { color: #50fa7b; }
 .shopee-hero p { color: #6272a4; font-size: 0.9rem; }
-.shopee-stats {
-  display: flex; gap: 32px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
-}
-.shopee-stat { text-align: center; }
+.shopee-stats { display: flex; gap: 32px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
 .shopee-stat-num { font-size: 1.6rem; font-weight: 700; color: #50fa7b; }
 .shopee-stat-label { font-size: 0.72rem; color: #6272a4; text-transform: uppercase; letter-spacing: 0.08em; }
-
-/* ── 搜尋 & 篩選列 ── */
 .shopee-controls {
-  background: #111;
-  border-bottom: 1px solid #1f2d1f;
-  padding: 16px 24px;
-  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  background: #111; border-bottom: 1px solid #1f2d1f;
+  padding: 16px 24px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
   position: sticky; top: 60px; z-index: 50;
 }
 .shopee-search {
-  flex: 1; min-width: 200px;
-  background: #161616; border: 1px solid #1f2d1f;
-  color: #f8f8f2; padding: 9px 16px; border-radius: 8px;
-  font-size: 0.88rem; outline: none;
-  transition: border-color 0.2s;
+  flex: 1; min-width: 200px; background: #161616; border: 1px solid #1f2d1f;
+  color: #f8f8f2; padding: 9px 16px; border-radius: 8px; font-size: 0.88rem; outline: none;
 }
-.shopee-search:focus { border-color: #50fa7b; box-shadow: 0 0 0 2px rgba(80,250,123,0.1); }
+.shopee-search:focus { border-color: #50fa7b; }
 .shopee-search::placeholder { color: #6272a4; }
 .filter-btn {
   padding: 8px 16px; border-radius: 8px; border: 1px solid #1f2d1f;
-  background: #161616; color: #6272a4; cursor: pointer;
-  font-size: 0.8rem; font-weight: 500; transition: all 0.2s;
-  white-space: nowrap;
+  background: #161616; color: #6272a4; cursor: pointer; font-size: 0.8rem; font-weight: 500;
 }
-.filter-btn:hover, .filter-btn.active {
-  background: #50fa7b; color: #0a0a0a; border-color: #50fa7b; font-weight: 700;
-}
-.sort-select {
-  background: #161616; border: 1px solid #1f2d1f; color: #6272a4;
-  padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;
-}
-.sort-select:focus { outline: none; border-color: #50fa7b; }
-
-/* ── 商品計數 ── */
-.shopee-count {
-  padding: 12px 24px;
-  color: #6272a4; font-size: 0.8rem;
-}
+.filter-btn.active { background: #50fa7b; color: #0a0a0a; border-color: #50fa7b; font-weight: 700; }
+.sort-select { background: #161616; border: 1px solid #1f2d1f; color: #6272a4; padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; }
+.shopee-count { padding: 12px 24px; color: #6272a4; font-size: 0.8rem; }
 .shopee-count strong { color: #50fa7b; }
-
-/* ── 商品網格 ── */
 .shopee-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-  padding: 16px 24px 48px;
-  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px; padding: 16px 24px 48px; max-width: 1400px; margin: 0 auto;
 }
-
-/* ── 商品卡片 ── */
 .s-card {
-  background: #161616;
-  border: 1px solid #1f2d1f;
-  border-radius: 14px;
-  overflow: hidden;
-  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
-  display: flex; flex-direction: column;
-  cursor: pointer;
-  text-decoration: none;
+  background: #161616; border: 1px solid #1f2d1f; border-radius: 14px;
+  overflow: hidden; transition: transform .22s, border-color .22s, box-shadow .22s;
+  display: flex; flex-direction: column; cursor: pointer; text-decoration: none;
 }
-.s-card:hover {
-  transform: translateY(-5px);
-  border-color: #50fa7b;
-  box-shadow: 0 12px 36px rgba(80,250,123,0.12);
-  text-decoration: none;
-}
+.s-card:hover { transform: translateY(-5px); border-color: #50fa7b; box-shadow: 0 12px 36px rgba(80,250,123,.12); }
 .s-card-top {
-  position: relative;
-  height: 160px;
+  position: relative; height: 150px;
   background: linear-gradient(135deg, #0f1f0f, #111);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem;
+  display: flex; align-items: center; justify-content: center; font-size: 3.2rem;
 }
 .s-card-badge {
   position: absolute; top: 10px; left: 10px;
-  font-size: 0.65rem; font-weight: 700;
-  padding: 3px 8px; border-radius: 4px;
-  text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: .65rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: .08em;
 }
-.badge-plush    { background: rgba(255,121,198,0.15); color: #ff79c6; border: 1px solid rgba(255,121,198,0.3); }
-.badge-robot    { background: rgba(139,233,253,0.15); color: #8be9fd; border: 1px solid rgba(139,233,253,0.3); }
-.badge-chess    { background: rgba(189,147,249,0.15); color: #bd93f9; border: 1px solid rgba(189,147,249,0.3); }
-.badge-edu      { background: rgba(255,184,108,0.15); color: #ffb86c; border: 1px solid rgba(255,184,108,0.3); }
+.badge-plush { background: rgba(255,121,198,.15); color: #ff79c6; border: 1px solid rgba(255,121,198,.3); }
+.badge-robot { background: rgba(139,233,253,.15); color: #8be9fd; border: 1px solid rgba(139,233,253,.3); }
+.badge-chess { background: rgba(189,147,249,.15); color: #bd93f9; border: 1px solid rgba(189,147,249,.3); }
+.badge-edu   { background: rgba(255,184,108,.15); color: #ffb86c; border: 1px solid rgba(255,184,108,.3); }
 .s-card-hot {
   position: absolute; top: 10px; right: 10px;
-  background: #ff5555; color: #fff;
-  font-size: 0.6rem; font-weight: 700;
-  padding: 2px 7px; border-radius: 4px;
+  background: #ff5555; color: #fff; font-size: .6rem; font-weight: 700; padding: 2px 7px; border-radius: 4px;
 }
 .s-card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
 .s-card-name {
-  font-size: 0.82rem; font-weight: 600; color: #f8f8f2;
-  line-height: 1.5; margin-bottom: 8px;
+  font-size: .82rem; font-weight: 600; color: #f8f8f2; line-height: 1.5; margin-bottom: 8px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.s-card-meta {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px;
-}
-.s-card-store { font-size: 0.7rem; color: #6272a4; }
-.s-card-sales { font-size: 0.7rem; color: #6272a4; }
+.s-card-meta { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.s-card-store, .s-card-sales { font-size: .7rem; color: #6272a4; }
 .s-card-bottom { margin-top: auto; }
-.s-card-price-row {
-  display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;
-}
-.s-card-price { font-size: 1.15rem; font-weight: 800; color: #50fa7b; }
-.s-card-commission {
-  font-size: 0.7rem; color: #6272a4;
-  background: rgba(80,250,123,0.06); padding: 2px 6px; border-radius: 4px;
-}
-.s-card-rate {
-  font-size: 0.68rem; color: #ffb86c;
-  background: rgba(255,184,108,0.08); padding: 2px 6px; border-radius: 4px;
-  margin-left: auto;
-}
+.s-card-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.s-card-price { font-size: 1.1rem; font-weight: 800; color: #50fa7b; }
+.s-card-commission { font-size: .68rem; color: #6272a4; background: rgba(80,250,123,.06); padding: 2px 6px; border-radius: 4px; }
+.s-card-rate { font-size: .68rem; color: #ffb86c; background: rgba(255,184,108,.08); padding: 2px 6px; border-radius: 4px; }
 .s-card-btn {
-  display: block; text-align: center;
-  background: #50fa7b; color: #0a0a0a !important;
-  padding: 9px 0; border-radius: 8px;
-  font-weight: 700; font-size: 0.8rem;
-  text-decoration: none !important;
-  transition: background 0.2s, box-shadow 0.2s;
-  letter-spacing: 0.04em;
+  display: block; text-align: center; background: #50fa7b; color: #0a0a0a !important;
+  padding: 9px 0; border-radius: 8px; font-weight: 700; font-size: .8rem;
+  text-decoration: none !important; letter-spacing: .04em; transition: background .2s;
 }
-.s-card-btn:hover {
-  background: #8be9fd !important;
-  box-shadow: 0 0 16px rgba(139,233,253,0.3);
-}
-
-/* ── 無結果 ── */
-.no-results {
-  text-align: center; padding: 80px 24px;
-  color: #6272a4; display: none;
-}
-.no-results .icon { font-size: 3rem; margin-bottom: 12px; }
-
-/* ── RWD ── */
-@media (max-width: 600px) {
-  .shopee-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+.s-card-btn:hover { background: #8be9fd !important; color: #0a0a0a !important; }
+.no-results { text-align: center; padding: 80px 24px; color: #6272a4; display: none; }
+@media (max-width:600px) {
+  .shopee-grid { grid-template-columns: repeat(2,1fr); gap: 10px; padding: 10px; }
   .s-card-top { height: 120px; font-size: 2.5rem; }
-  .shopee-controls { top: 0; }
 }
 </style>
 
@@ -176,18 +95,9 @@
   <h1>💀 骨頭人 <span>AI 玩具商城</span></h1>
   <p>精選蝦皮聯盟商品，骨頭人幫你篩過了，每一件都是真材實料</p>
   <div class="shopee-stats">
-    <div class="shopee-stat">
-      <div class="shopee-stat-num" id="total-count">60</div>
-      <div class="shopee-stat-label">精選商品</div>
-    </div>
-    <div class="shopee-stat">
-      <div class="shopee-stat-num">4</div>
-      <div class="shopee-stat-label">商品分類</div>
-    </div>
-    <div class="shopee-stat">
-      <div class="shopee-stat-num">最高 19%</div>
-      <div class="shopee-stat-label">聯盟分潤</div>
-    </div>
+    <div class="shopee-stat"><div class="shopee-stat-num">60</div><div class="shopee-stat-label">精選商品</div></div>
+    <div class="shopee-stat"><div class="shopee-stat-num">4</div><div class="shopee-stat-label">商品分類</div></div>
+    <div class="shopee-stat"><div class="shopee-stat-num">最高 19%</div><div class="shopee-stat-label">聯盟分潤</div></div>
   </div>
 </div>
 
@@ -208,75 +118,45 @@
 </div>
 
 <div class="shopee-count" id="resultCount">顯示 <strong>60</strong> 件商品</div>
-
 <div class="shopee-grid" id="productGrid"></div>
-<div class="no-results" id="noResults">
-  <div class="icon">💀</div>
-  <div>這裡什麼都沒有，骨頭人也找不到你要的商品。</div>
-</div>
+<div class="no-results" id="noResults"><div style="font-size:3rem">💀</div><div>這裡什麼都沒有，骨頭人也找不到你要的商品。</div></div>
 
 <script>
-const products = {{ $.Site.Data.shopee_products.products | jsonify }};
-
-let currentCat = '全部';
-let currentSearch = '';
-let currentSort = 'default';
+const PRODUCTS = [{"id": "41380608357", "name": "AI福娃ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1310, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$13.10", "url": "https://s.shopee.tw/AADtBKXnLH", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "48809964374", "name": "AI小恐龍ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1630, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$16.30", "url": "https://s.shopee.tw/9fHcaPZhMC", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "48809964375", "name": "AI福娃ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1635, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$16.35", "url": "https://s.shopee.tw/9pb2miZ41F", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "55259953197", "name": "AI赤焰馬ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1442, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$14.42", "url": "https://s.shopee.tw/9KemBnay2A", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "55759944468", "name": "AI小汽車ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1635, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$16.35", "url": "https://s.shopee.tw/9UyCO6aKhD", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "41380608355", "name": "喜玩伴AI小汽車ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1292, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$12.92", "url": "https://s.shopee.tw/901vnBcEi8", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "55759944421", "name": "AI孫悟空馬年玩具ai陪伴玩具智能玩具ai毛絨玩具兒童悟空智能可愛", "price": 1692, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$16.92", "url": "https://s.shopee.tw/9ALLzUbbNB", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "55759944465", "name": "AI孫悟空馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 1442, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$14.42", "url": "https://s.shopee.tw/8fP5OZdVO6", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "41280608387", "name": "AI玩具毛絨公仔互動AI對話玩具多語言智能機器人兒童益智早教玩偶", "price": 1383, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$13.83", "url": "https://s.shopee.tw/8piVascs39", "emoji": "🤖", "cat": "早教學習機"}, {"id": "41280608380", "name": "講故事AI小紅馬ai智能玩具馬ai陪伴玩偶早教啟蒙毛絨玩具親子", "price": 1607, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$16.07", "url": "https://s.shopee.tw/8KmEzxem44", "emoji": "🐴", "cat": "早教學習機"}, {"id": "48809964373", "name": "AI玩具毛絨公仔互動AI對話玩具多語言智能機器人兒童益智早教玩偶", "price": 1432, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$14.32", "url": "https://s.shopee.tw/8V5fCGe8j7", "emoji": "🤖", "cat": "早教學習機"}, {"id": "41180608382", "name": "AI玩具毛絨公仔互動AI對話玩具多語言智能機器人兒童益智早教玩偶", "price": 1768, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$17.68", "url": "https://s.shopee.tw/809ObLg2k2", "emoji": "🤖", "cat": "早教學習機"}, {"id": "48809964344", "name": "正版ai人工智能玩具語音對話ai智能寵物ai兒童玩具情感陪伴高配版", "price": 1420, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$14.20", "url": "https://s.shopee.tw/8ASonefPP5", "emoji": "🧸", "cat": "毛絨陪伴玩具"}, {"id": "55759944424", "name": "AI玩具毛絨公仔互動AI對話玩具多語言智能機器人兒童益智早教玩偶", "price": 1534, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$15.34", "url": "https://s.shopee.tw/7fWYCjhJQ0", "emoji": "🤖", "cat": "早教學習機"}, {"id": "54109422837", "name": "智能ai玩伴對話玩具4G高配版語音機器人英語ai智能機器人女孩禮物", "price": 1129, "sales": 0, "store": "mankun1", "rate": "1%", "commission": "$11.29", "url": "https://s.shopee.tw/7ppyP2gg53", "emoji": "🤖", "cat": "AI機器人"}, {"id": "53558976462", "name": "AI小恐龍ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具", "price": 2755, "sales": 0, "store": "fu333tw", "rate": "1%", "commission": "$27.55", "url": "https://s.shopee.tw/7Ktho7ia5y", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "49807294706", "name": "AI紅焰馬AI智能玩具馬年玩具AI伴侶玩具智能玩具AI毛絨玩具3.16", "price": 1685, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$16.85", "url": "https://s.shopee.tw/7VD80Qhwl1", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "58106354408", "name": "喜玩伴AI小恐龍ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具YBL2.24", "price": 1170, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$11.70", "url": "https://s.shopee.tw/70GrPVjqlw", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "58106354412", "name": "喜玩伴AI小汽車ai智能玩具馬年玩具ai陪伴玩具智能玩具ai毛絨玩具YBL2.24", "price": 1170, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$11.70", "url": "https://s.shopee.tw/7AaHbojDQz", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "56007269890", "name": "快樂伴侶AI公仔AI智能玩具馬年玩具AI伴侶玩具智能玩具AI毛絨玩具3.16", "price": 1609, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$16.09", "url": "https://s.shopee.tw/6fe10tl7Ru", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "56957274789", "name": "AI小恐龍AI智能玩具馬年玩具AI伴侶玩具智能玩具AI毛絨玩具ybl3.16", "price": 1544, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$15.44", "url": "https://s.shopee.tw/6pxRDCkU6x", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "51657280183", "name": "趣味伴侶AI小恐龍AI智能玩具馬年玩具AI伴侶玩具智能玩具AI毛絨玩具3.16", "price": 1660, "sales": 0, "store": "zuihuaying", "rate": "1%", "commission": "$16.60", "url": "https://s.shopee.tw/6L1AcHmO7s", "emoji": "🐴", "cat": "毛絨陪伴玩具"}, {"id": "49909276369", "name": "圓形智能機器人桌伴ai人工智能玩具高科技ai智能寵物電子寵物正版", "price": 1508, "sales": 0, "store": "xnh2050", "rate": "1%", "commission": "$15.08", "url": "https://s.shopee.tw/6VKaoalkmv", "emoji": "🤖", "cat": "AI機器人"}, {"id": "29044557824", "name": "【AI智能互動機器人🤖AI陪伴成長】ai智能機器人 ai機器人 科學玩具 獎勵玩具 機械玩", "price": 220, "sales": 0, "store": "大鵝生活鋪 專注品質|安全", "rate": "14%", "commission": "$30.80", "url": "https://s.shopee.tw/60OKDfnenq", "emoji": "🤖", "cat": "AI機器人"}, {"id": "57057365561", "name": "ai毛絨玩具ai玩具益智玩具ai陪伴玩具智能玩具ai小恐龍喜玩伴M", "price": 1489, "sales": 0, "store": "woshiguoguo1.tw", "rate": "1%", "commission": "$14.89", "url": "https://s.shopee.tw/6AhkPyn1St", "emoji": "🦕", "cat": "毛絨陪伴玩具"}, {"id": "43379342023", "name": "ai毛絨玩具ai玩具益智玩具ai陪伴玩具智能玩具ai孫悟空喜玩伴v", "price": 1674, "sales": 0, "store": "woshiguoguo1.tw", "rate": "1%", "commission": "$16.74", "url": "https://s.shopee.tw/5flTp3ovTo", "emoji": "🐒", "cat": "毛絨陪伴玩具"}, {"id": "41361575564", "name": "台灣現貨『2025全新AI玩具』AI智能五子棋 超棋大師電子棋 多合一智能棋盤 AI電子棋", "price": 3499, "sales": 1, "store": "寶媽🔸🔸🔸百貨鋪🛒", "rate": "1%", "commission": "$34.99", "url": "https://s.shopee.tw/5q4u1MoI8r", "emoji": "♟️", "cat": "AI棋盤桌遊"}, {"id": "55759944466", "name": "AI智能玩偶玩具貓頭鷹咕咕 智能陪伴互動毛絨玩具玩偶 聊天小能手", "price": 1397, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$13.97", "url": "https://s.shopee.tw/5L8dQRqC9m", "emoji": "🦉", "cat": "毛絨陪伴玩具"}, {"id": "41480608346", "name": "ai人工智能玩具高科技語音ai智能寵物玩具毛絨公仔情感生日禮物", "price": 1439, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$14.39", "url": "https://s.shopee.tw/5VS3ckpYop", "emoji": "🧸", "cat": "毛絨陪伴玩具"}, {"id": "41380608366", "name": "DeepSeek豆包ai智能對話AI玩具聊天桌面機器人語音陪伴兒童節禮物", "price": 1586, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$15.86", "url": "https://s.shopee.tw/50Vn1prSpk", "emoji": "🤖", "cat": "AI機器人"}, {"id": "41180608381", "name": "小智ai盒子豆包ai機器人智能音響deepseek多國語言人工智能ai玩具", "price": 1529, "sales": 0, "store": "faa888888", "rate": "1%", "commission": "$15.29", "url": "https://s.shopee.tw/5ApDE8qpUn", "emoji": "🤖", "cat": "AI機器人"}, {"id": "52909427035", "name": "寒米Ai早教機兒童智能陪伴機器人益玩具語音對話AI語音助手孩子", "price": 968, "sales": 0, "store": "mankun1", "rate": "1%", "commission": "$9.68", "url": "https://s.shopee.tw/4fswdDsjVi", "emoji": "🤖", "cat": "早教學習機"}, {"id": "53009426973", "name": "爆火玩具ai語音機器人豆包同學ai智能機器人兒童男孩禮物", "price": 1296, "sales": 0, "store": "mankun1", "rate": "1%", "commission": "$12.96", "url": "https://s.shopee.tw/4qCMpWs6Al", "emoji": "🤖", "cat": "AI機器人"}, {"id": "50959609800", "name": "智能Ai兒童智能學習機器人玩具新生早教故事機學習陪伴多功能對話/智能Ai兒童智能學習機器人", "price": 547, "sales": 0, "store": "desong714", "rate": "1%", "commission": "$5.47", "url": "https://s.shopee.tw/4LG6Ebu0Bg", "emoji": "🤖", "cat": "早教學習機"}, {"id": "49759154583", "name": "Deepseek智能AI對話玩具語音機器人聊天玩具豆包兒童聊天盒子", "price": 1186, "sales": 0, "store": "wangdongjun1", "rate": "1%", "commission": "$11.86", "url": "https://s.shopee.tw/4VZWQutMqj", "emoji": "🤖", "cat": "AI機器人"}, {"id": "47659892489", "name": "ai對話抱抱陪伴deepseek智能玩具豆包說話女孩生日禮物ai智能寵物/ai對話抱抱陪伴", "price": 1189, "sales": 0, "store": "desong714", "rate": "1%", "commission": "$11.89", "url": "https://s.shopee.tw/40dFpzvGre", "emoji": "🧸", "cat": "AI機器人"}, {"id": "49659154700", "name": "AI福仔升級版精靈兔子智能玩具ai玩偶電子寵物手感舒服兒童玩具", "price": 741, "sales": 0, "store": "wangdongjun1", "rate": "1%", "commission": "$7.41", "url": "https://s.shopee.tw/4Awg2IudWh", "emoji": "🐰", "cat": "AI機器人"}, {"id": "42378512186", "name": "AI智能鬧鐘 AI大模型豆包deepseek ai智能對話鬧鐘 帶語音ai對話玩具 百科問", "price": 678, "sales": 0, "store": "尚合優選賣場", "rate": "1%", "commission": "$6.78", "url": "https://s.shopee.tw/3g0PRNwXXc", "emoji": "⏰", "cat": "AI機器人"}, {"id": "57209621629", "name": "智能對話玩具語音機器人ai智能機器人英語女孩生日禮物高級高配版/智能對話玩具語音機器人ai", "price": 1714, "sales": 0, "store": "desong714", "rate": "1%", "commission": "$17.14", "url": "https://s.shopee.tw/3qJpdgvuCf", "emoji": "🤖", "cat": "AI機器人"}, {"id": "41354148388", "name": "（好物優選 ） 多功能ai語音學說話智能早教玩具 按鍵玩具 親子玩具 電話玩具對話  可充", "price": 153, "sales": 22, "store": "*菜菜的小店*", "rate": "15%", "commission": "$22.95", "url": "https://s.shopee.tw/3LNZ2lxoDa", "emoji": "🧸", "cat": "早教學習機"}, {"id": "49160098659", "name": "拍拍燈互動AI兒童陪伴解壓智能玩具deepseek小智ai機器人玩具禮物", "price": 1732, "sales": 0, "store": "t3pocmcuxb.tw", "rate": "1%", "commission": "$17.32", "url": "https://s.shopee.tw/3VgzF4xAsd", "emoji": "🤖", "cat": "AI機器人"}, {"id": "55307262513", "name": "紐曼AI智能智能智能語音玩具兒童早教學習精靈兒童創意台鐘紐曼AI鬧鐘多功能智能對話玩具20", "price": 1943, "sales": 0, "store": "1446lfoeushop.tw", "rate": "1%", "commission": "$19.43", "url": "https://s.shopee.tw/30kie9z4tY", "emoji": "⏰", "cat": "早教學習機"}, {"id": "51259185184", "name": "ai玩具智能對話芙玩具公仔包吊飾桌伴陪伴公仔/ai玩具智能對話芙玩具公仔包吊飾桌伴陪伴公仔", "price": 901, "sales": 0, "store": "zeshujin3", "rate": "1%", "commission": "$9.01", "url": "https://s.shopee.tw/3B48qSyRYb", "emoji": "🧸", "cat": "AI機器人"}, {"id": "25045531159", "name": "『2025全新AI玩具 12H快速出貨』AI智能五子棋 超棋大師電子棋 多合一智能棋盤 A", "price": 3299, "sales": 7, "store": "LKD玩具城", "rate": "19%", "commission": "$626.81", "url": "https://s.shopee.tw/2g7sFY0LZW", "emoji": "♟️", "cat": "AI棋盤桌遊"}, {"id": "41430259272", "name": "Ai智能泰迪狗機器人ai人工智能玩具高科技電子寵物", "price": 3140, "sales": 0, "store": "xnh2050", "rate": "1%", "commission": "$31.40", "url": "https://s.shopee.tw/2qRIRqziEZ", "emoji": "🤖", "cat": "AI機器人"}, {"id": "41407162155", "name": "現貨『2025全新AI玩具』AI智能五子棋 超棋大師電子棋 多合一智能棋盤 AI電子棋 A", "price": 3499, "sales": 0, "store": "蓉易買🛍️百貨城🛒", "rate": "1%", "commission": "$34.99", "url": "https://s.shopee.tw/2LV1qw1cFU", "emoji": "♟️", "cat": "AI棋盤桌遊"}, {"id": "48409281298", "name": "AI智能對話玩具團芙吊飾毛絨桌面搭子治癒系智能電子寵物陪伴日常", "price": 2084, "sales": 0, "store": "xnh2050", "rate": "1%", "commission": "$20.84", "url": "https://s.shopee.tw/2VoS3F0yuX", "emoji": "🧸", "cat": "AI機器人"}, {"id": "57409265516", "name": "智能AI機器人遙控電玩玩具高科技千問兒童益智編程機器人玩具", "price": 1967, "sales": 0, "store": "xnh2050", "rate": "1%", "commission": "$19.67", "url": "https://s.shopee.tw/20sBSK2svS", "emoji": "🤖", "cat": "AI機器人"}, {"id": "49909276320", "name": "小智AI語音智能機器人桌面寵物智能互動兒童陪伴玩具跳舞音樂語音", "price": 2177, "sales": 0, "store": "xnh2050", "rate": "1%", "commission": "$21.77", "url": "https://s.shopee.tw/2BBbed2FaV", "emoji": "🤖", "cat": "AI機器人"}, {"id": "41380411393", "name": "大模型AI智能互動機器人早教伴學習機智能鬧鐘益智啟蒙玩具故事機/大模型AI智能互動機器人早", "price": 2521, "sales": 0, "store": "dwwww2", "rate": "1%", "commission": "$25.21", "url": "https://s.shopee.tw/1gFL3i49bQ", "emoji": "🤖", "cat": "早教學習機"}, {"id": "26244730410", "name": "AI福仔升級版精靈兔子智能玩具ai玩偶電子寵物手感舒服兒童玩具", "price": 729, "sales": 0, "store": "wangdongjun2", "rate": "1%", "commission": "$7.29", "url": "https://s.shopee.tw/1qYlG13WGT", "emoji": "🐰", "cat": "AI機器人"}, {"id": "41530171900", "name": "Ai智能早教機器人兒童益智玩具陪伴學習機ai語音對話3男女0到16歲", "price": 1133, "sales": 0, "store": "xunzhu11", "rate": "1%", "commission": "$11.33", "url": "https://s.shopee.tw/1LcUf65QHO", "emoji": "🤖", "cat": "早教學習機"}, {"id": "51159065613", "name": "智能Ai兒童智能學習機器人玩具新生早教故事機學習陪伴多功能對話", "price": 778, "sales": 0, "store": "xunzhu11", "rate": "1%", "commission": "$7.78", "url": "https://s.shopee.tw/1VvurP4mwR", "emoji": "🤖", "cat": "早教學習機"}, {"id": "48559076612", "name": "豆包ai對話玩具語音孩子益智早教故事機智能機器人AI人工智能對話", "price": 1121, "sales": 0, "store": "xunzhu11", "rate": "1%", "commission": "$11.21", "url": "https://s.shopee.tw/10zeGU6gxM", "emoji": "🤖", "cat": "早教學習機"}, {"id": "51159065609", "name": "寒米Ai早教機兒童智能陪伴機器人益玩具語音對話AI語音助手孩子", "price": 1692, "sales": 0, "store": "xunzhu11", "rate": "1%", "commission": "$16.92", "url": "https://s.shopee.tw/1BJ4Sn63cP", "emoji": "🤖", "cat": "早教學習機"}, {"id": "51159065665", "name": "寒米Ai早教機兒童智能陪伴機器人益玩具語音對話AI語音助手孩子", "price": 991, "sales": 0, "store": "xunzhu11", "rate": "1%", "commission": "$9.91", "url": "https://s.shopee.tw/gMnrs7xdK", "emoji": "🤖", "cat": "早教學習機"}, {"id": "46258425580", "name": "台灣現貨🎨14合一AI智能棋盤 井字棋 打地鼠 孔明棋 圍棋 AI棋盤 AI智能五子棋 A", "price": 915, "sales": 1, "store": "樂貝母嬰用品店💕", "rate": "13%", "commission": "$118.95", "url": "https://s.shopee.tw/qgE4B7KIN", "emoji": "♟️", "cat": "AI棋盤桌遊"}, {"id": "47359149741", "name": "台灣現貨 14合一AI智能棋盤 AI電子棋 圍棋 AI棋盤 AI智能五子棋 智能五子棋 電", "price": 915, "sales": 0, "store": "一家玩具屋", "rate": "13%", "commission": "$118.95", "url": "https://s.shopee.tw/LjxTG9EJI", "emoji": "♟️", "cat": "AI棋盤桌遊"}, {"id": "45903128978", "name": "獎勵玩具✨智能機器人🔥AI語音問答 情感陪伴 多種語言 藍牙機器人 智能語音機械玩具科學玩", "price": 519, "sales": 17, "store": "3C電力星球", "rate": "16%", "commission": "$83.04", "url": "https://s.shopee.tw/W3NfZ8ayL", "emoji": "🤖", "cat": "AI機器人"}, {"id": "45808638431", "name": "口袋電子棋盤 電子五子棋 五合一棋盤 AI智能對戰 翻轉棋 智能黑白棋 兒童益智玩具 AI", "price": 313, "sales": 0, "store": "W M 選物販賣機", "rate": "16%", "commission": "$50.08", "url": "https://s.shopee.tw/1774eAUzG", "emoji": "♟️", "cat": "AI棋盤桌遊"}];
 
 const catBadge = {
-  '毛絨陪伴玩具': { cls: 'badge-plush', label: '毛絨陪伴' },
-  'AI機器人':     { cls: 'badge-robot', label: 'AI機器人' },
-  'AI棋盤桌遊':   { cls: 'badge-chess', label: '棋盤桌遊' },
-  '早教學習機':   { cls: 'badge-edu',   label: '早教學習' }
+  '毛絨陪伴玩具': {cls:'badge-plush', label:'毛絨陪伴'},
+  'AI機器人':     {cls:'badge-robot', label:'AI機器人'},
+  'AI棋盤桌遊':   {cls:'badge-chess', label:'棋盤桌遊'},
+  '早教學習機':   {cls:'badge-edu',   label:'早教學習'}
 };
 
+let currentCat = '全部', currentSearch = '', currentSort = 'default';
+
 function renderProducts() {
-  let list = [...products];
-
-  // Filter by category
-  if (currentCat !== '全部') {
-    list = list.filter(p => p.cat === currentCat);
-  }
-
-  // Filter by search
+  let list = [...PRODUCTS];
+  if (currentCat !== '全部') list = list.filter(p => p.cat === currentCat);
   if (currentSearch) {
     const q = currentSearch.toLowerCase();
     list = list.filter(p => p.name.toLowerCase().includes(q) || p.store.toLowerCase().includes(q));
   }
-
-  // Sort
   if (currentSort === 'price-asc')  list.sort((a,b) => a.price - b.price);
   if (currentSort === 'price-desc') list.sort((a,b) => b.price - a.price);
   if (currentSort === 'sales-desc') list.sort((a,b) => b.sales - a.sales);
   if (currentSort === 'commission-desc') {
-    list.sort((a,b) => {
-      const av = parseFloat(a.commission.replace('$',''));
-      const bv = parseFloat(b.commission.replace('$',''));
-      return bv - av;
-    });
+    list.sort((a,b) => parseFloat(b.commission.replace('$','')) - parseFloat(a.commission.replace('$','')));
   }
-
   const grid = document.getElementById('productGrid');
   const noRes = document.getElementById('noResults');
-  const count = document.getElementById('resultCount');
-
-  if (list.length === 0) {
-    grid.innerHTML = '';
-    noRes.style.display = 'block';
-    count.innerHTML = '顯示 <strong>0</strong> 件商品';
-    return;
-  }
-
+  document.getElementById('resultCount').innerHTML = `顯示 <strong>${list.length}</strong> 件商品`;
+  if (!list.length) { grid.innerHTML = ''; noRes.style.display='block'; return; }
   noRes.style.display = 'none';
-  count.innerHTML = `顯示 <strong>${list.length}</strong> 件商品`;
-
   grid.innerHTML = list.map(p => {
-    const badge = catBadge[p.cat] || { cls: 'badge-robot', label: p.cat };
-    const isHot = p.sales > 5;
-    return `
-    <a class="s-card" href="${p.url}" target="_blank" rel="noopener" onclick="trackClick('${p.id}')">
+    const b = catBadge[p.cat] || {cls:'badge-robot', label:p.cat};
+    const hot = p.sales > 5 ? '<span class=\"s-card-hot\">🔥 熱銷</span>' : '';
+    return `<a class="s-card" href="${p.url}" target="_blank" rel="noopener">
       <div class="s-card-top">
-        <span class="s-card-badge ${badge.cls}">${badge.label}</span>
-        ${isHot ? '<span class="s-card-hot">🔥 熱銷</span>' : ''}
+        <span class="s-card-badge ${b.cls}">${b.label}</span>${hot}
         <span>${p.emoji}</span>
       </div>
       <div class="s-card-body">
@@ -298,21 +178,8 @@ function renderProducts() {
   }).join('');
 }
 
-function trackClick(id) {
-  console.log('Affiliate click:', id);
-}
-
-// Events
-document.getElementById('searchInput').addEventListener('input', e => {
-  currentSearch = e.target.value;
-  renderProducts();
-});
-
-document.getElementById('sortSelect').addEventListener('change', e => {
-  currentSort = e.target.value;
-  renderProducts();
-});
-
+document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderProducts(); });
+document.getElementById('sortSelect').addEventListener('change', e => { currentSort = e.target.value; renderProducts(); });
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -321,7 +188,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     renderProducts();
   });
 });
-
 renderProducts();
 </script>
 {{ end }}
