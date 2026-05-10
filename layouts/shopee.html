@@ -2,9 +2,8 @@
 <style>
 .shopee-hero {
   background: linear-gradient(135deg,#0a0a0a 0%,#0d1a0d 60%,#0a0a0a 100%);
-  border-bottom: 1px solid #1f2d1f;
-  padding: 48px 24px 32px;
-  text-align: center; position: relative; overflow: hidden;
+  border-bottom:1px solid #1f2d1f; padding:48px 24px 32px;
+  text-align:center; position:relative; overflow:hidden;
 }
 .shopee-hero::before {
   content:\'\'; position:absolute; inset:0;
@@ -24,14 +23,12 @@
 .shopee-search{
   flex:1;min-width:200px;background:#161616;border:1px solid #1f2d1f;
   color:#f8f8f2;padding:9px 16px;border-radius:8px;font-size:.88rem;outline:none;
-  transition:border-color .2s;
 }
-.shopee-search:focus{border-color:#50fa7b;box-shadow:0 0 0 2px rgba(80,250,123,.1);}
+.shopee-search:focus{border-color:#50fa7b;}
 .shopee-search::placeholder{color:#6272a4;}
 .filter-btn{
   padding:8px 16px;border-radius:8px;border:1px solid #1f2d1f;
   background:#161616;color:#6272a4;cursor:pointer;font-size:.8rem;font-weight:500;
-  transition:all .2s;white-space:nowrap;
 }
 .filter-btn.active,.filter-btn:hover{background:#50fa7b;color:#0a0a0a;border-color:#50fa7b;font-weight:700;}
 .sort-select{background:#161616;border:1px solid #1f2d1f;color:#6272a4;padding:8px 12px;border-radius:8px;font-size:.8rem;}
@@ -41,102 +38,103 @@
   display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
   gap:16px;padding:16px 24px 48px;max-width:1400px;margin:0 auto;
 }
-
-/* ── 商品卡片 ── */
+/* Card */
 .s-card{
   background:#161616;border:1px solid #1f2d1f;border-radius:14px;
   overflow:hidden;transition:transform .22s,border-color .22s,box-shadow .22s;
-  display:flex;flex-direction:column;cursor:pointer;text-decoration:none;
+  display:flex;flex-direction:column;text-decoration:none;
 }
-.s-card:hover{transform:translateY(-5px);border-color:var(--ac);box-shadow:0 12px 36px rgba(0,0,0,.4);}
+.s-card:hover{transform:translateY(-5px);border-color:var(--ac,#50fa7b);box-shadow:0 12px 36px rgba(0,0,0,.5);}
 
-/* ── 圖片區：支援真實圖片 + Emoji fallback ── */
-.s-card-thumb{
-  position:relative;height:160px;overflow:hidden;
+/* ── 圖片區 ── */
+.s-thumb{
+  position:relative;height:180px;overflow:hidden;
+  background:var(--grad,linear-gradient(135deg,#0f1f0f,#111));
   display:flex;align-items:center;justify-content:center;
 }
 /* 真實圖片 */
-.s-card-thumb img.product-img{
+.s-thumb img.real-img{
   width:100%;height:100%;object-fit:cover;
+  position:absolute;inset:0;opacity:0;
+  transition:opacity .4s,transform .3s;
+}
+.s-thumb img.real-img.show{opacity:1;}
+.s-card:hover .s-thumb img.real-img.show{transform:scale(1.06);}
+
+/* Emoji fallback */
+.s-thumb .emoji-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  transition:opacity .3s;position:relative;z-index:1;
+}
+.s-thumb .emoji-wrap .e-icon{font-size:3.5rem;line-height:1;}
+.s-thumb .emoji-wrap .e-cat{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;}
+.s-thumb.img-ok .emoji-wrap{opacity:0;pointer-events:none;}
+
+/* 載入動畫 shimmer */
+.s-thumb .shimmer{
   position:absolute;inset:0;
-  transition:transform .3s,opacity .3s;
-  opacity:0; /* 預設隱藏，載入成功才顯示 */
+  background:linear-gradient(90deg,#161616 25%,#1f2d1f 50%,#161616 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
 }
-.s-card-thumb img.product-img.loaded{opacity:1;}
-.s-card-thumb img.product-img.error{display:none;}
+.s-thumb.img-ok .shimmer,.s-thumb.img-fail .shimmer{display:none;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* Emoji fallback 背景 */
-.s-card-thumb .emoji-bg{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:6px;
-  transition:opacity .3s;
-}
-.s-card-thumb .emoji-bg .emoji-icon{font-size:3.5rem;line-height:1;}
-.s-card-thumb .emoji-bg .emoji-cat{
-  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  opacity:.7;
-}
-/* 當圖片載入成功時隱藏 emoji */
-.s-card-thumb.img-loaded .emoji-bg{opacity:0;pointer-events:none;}
-
-/* Hover 放大圖片 */
-.s-card:hover .s-card-thumb img.product-img.loaded{transform:scale(1.05);}
-
-/* 角落標籤 */
-.s-card-badge{
+/* 標籤 */
+.s-badge{
   position:absolute;top:10px;left:10px;z-index:2;
   font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:4px;
-  text-transform:uppercase;letter-spacing:.08em;
-  backdrop-filter:blur(4px);
+  text-transform:uppercase;letter-spacing:.08em;backdrop-filter:blur(4px);
 }
 .badge-plush{background:rgba(255,121,198,.2);color:#ff79c6;border:1px solid rgba(255,121,198,.4);}
 .badge-robot{background:rgba(139,233,253,.2);color:#8be9fd;border:1px solid rgba(139,233,253,.4);}
 .badge-chess{background:rgba(189,147,249,.2);color:#bd93f9;border:1px solid rgba(189,147,249,.4);}
 .badge-edu  {background:rgba(255,184,108,.2);color:#ffb86c;border:1px solid rgba(255,184,108,.4);}
-.s-card-hot{
-  position:absolute;top:10px;right:10px;z-index:2;
-  background:#ff5555;color:#fff;font-size:.6rem;font-weight:700;
-  padding:2px 7px;border-radius:4px;
-}
+.s-hot{position:absolute;top:10px;right:10px;z-index:2;background:#ff5555;color:#fff;font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:4px;}
 
-/* 蝦皮購物 hover overlay */
-.s-card-thumb .shopee-overlay{
-  position:absolute;inset:0;z-index:3;
-  background:rgba(0,0,0,.6);
+/* Hover overlay */
+.s-overlay{
+  position:absolute;inset:0;z-index:3;background:rgba(0,0,0,.55);
   display:flex;align-items:center;justify-content:center;
   opacity:0;transition:opacity .2s;
 }
-.s-card:hover .s-card-thumb .shopee-overlay{opacity:1;}
-.shopee-overlay span{
-  background:#ee4d2d;color:#fff;font-size:.75rem;font-weight:700;
-  padding:8px 16px;border-radius:6px;letter-spacing:.04em;
-}
+.s-card:hover .s-overlay{opacity:1;}
+.s-overlay span{background:#ee4d2d;color:#fff;font-size:.78rem;font-weight:700;padding:8px 18px;border-radius:6px;}
 
-/* ── 卡片資訊區 ── */
-.s-card-body{padding:14px;flex:1;display:flex;flex-direction:column;}
-.s-card-name{
+/* Body */
+.s-body{padding:14px;flex:1;display:flex;flex-direction:column;}
+.s-name{
   font-size:.82rem;font-weight:600;color:#f8f8f2;line-height:1.5;margin-bottom:8px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-.s-card-meta{display:flex;justify-content:space-between;margin-bottom:10px;}
-.s-card-store,.s-card-sales{font-size:.7rem;color:#6272a4;}
-.s-card-bottom{margin-top:auto;}
-.s-card-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
-.s-card-price{font-size:1.1rem;font-weight:800;color:#50fa7b;}
-.s-card-commission{font-size:.68rem;color:#6272a4;background:rgba(80,250,123,.06);padding:2px 6px;border-radius:4px;}
-.s-card-rate{font-size:.68rem;color:#ffb86c;background:rgba(255,184,108,.08);padding:2px 6px;border-radius:4px;}
-.s-card-btn{
+.s-meta{display:flex;justify-content:space-between;margin-bottom:10px;}
+.s-store,.s-sales{font-size:.7rem;color:#6272a4;}
+.s-bottom{margin-top:auto;}
+.s-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.s-price{font-size:1.1rem;font-weight:800;color:#50fa7b;}
+.s-comm{font-size:.68rem;color:#6272a4;background:rgba(80,250,123,.06);padding:2px 6px;border-radius:4px;}
+.s-rate{font-size:.68rem;color:#ffb86c;background:rgba(255,184,108,.08);padding:2px 6px;border-radius:4px;}
+.s-btn{
   display:block;text-align:center;background:#ee4d2d;color:#fff !important;
-  padding:9px 0;border-radius:8px;font-weight:700;font-size:.8rem;
+  padding:10px 0;border-radius:8px;font-weight:700;font-size:.8rem;
   text-decoration:none !important;transition:background .2s,box-shadow .2s;
 }
-.s-card-btn:hover{background:#ff6b4a !important;color:#fff !important;box-shadow:0 0 16px rgba(238,77,45,.3);}
+.s-btn:hover{background:#ff6b4a !important;color:#fff !important;box-shadow:0 0 16px rgba(238,77,45,.3);}
+
 .no-results{text-align:center;padding:80px 24px;color:#6272a4;display:none;}
+
+/* OG 狀態指示 */
+.og-indicator{
+  position:absolute;bottom:6px;right:8px;z-index:2;
+  font-size:.6rem;padding:1px 5px;border-radius:3px;
+  background:rgba(0,0,0,.5);color:#6272a4;
+}
+.og-indicator.ok{color:#50fa7b;}
+.og-indicator.fail{color:#ff5555;}
 
 @media(max-width:600px){
   .shopee-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:10px;}
-  .s-card-thumb{height:130px;}
+  .s-thumb{height:130px;}
   .shopee-controls{top:0;}
 }
 </style>
@@ -184,29 +182,65 @@ const catBadge = {
   '早教學習機'  :{cls:'badge-edu',  label:'早教學習'}
 };
 
+// 圖片快取（session 內不重複請求）
+const imgCache = {};
+
 let currentCat='全部', currentSearch='', currentSort='default';
 
-function bindImgEvents() {
-  document.querySelectorAll('.product-img').forEach(img => {
-    if (img.complete) {
-      handleImgLoad(img);
-    } else {
-      img.addEventListener('load',  () => handleImgLoad(img));
-      img.addEventListener('error', () => handleImgError(img));
-    }
+/* ── OG 圖片懶載入 ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const thumb = entry.target;
+    const shopeeUrl = thumb.dataset.shopeeUrl;
+    if (!shopeeUrl || thumb.dataset.loaded) return;
+    thumb.dataset.loaded = '1';
+    observer.unobserve(thumb);
+    loadOGImage(thumb, shopeeUrl);
   });
+}, { rootMargin: '200px' });
+
+async function loadOGImage(thumb, shopeeUrl) {
+  if (imgCache[shopeeUrl]) {
+    applyImage(thumb, imgCache[shopeeUrl]);
+    return;
+  }
+  try {
+    const apiUrl = `/api/og?url=${encodeURIComponent(shopeeUrl)}`;
+    const resp = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+    const data = await resp.json();
+    const imgUrl = data.image || '';
+    imgCache[shopeeUrl] = imgUrl;
+    applyImage(thumb, imgUrl);
+  } catch(e) {
+    thumb.classList.add('img-fail');
+    const ind = thumb.querySelector('.og-indicator');
+    if (ind) { ind.textContent = '❌'; ind.classList.add('fail'); }
+  }
 }
 
-function handleImgLoad(img) {
-  img.classList.add('loaded');
-  img.closest('.s-card-thumb').classList.add('img-loaded');
+function applyImage(thumb, imgUrl) {
+  const ind = thumb.querySelector('.og-indicator');
+  if (!imgUrl) {
+    thumb.classList.add('img-fail');
+    if (ind) { ind.textContent = '❌'; ind.classList.add('fail'); }
+    return;
+  }
+  const img = thumb.querySelector('img.real-img');
+  if (!img) return;
+  img.onload = () => {
+    img.classList.add('show');
+    thumb.classList.add('img-ok');
+    if (ind) { ind.textContent = '✅'; ind.classList.add('ok'); }
+  };
+  img.onerror = () => {
+    thumb.classList.add('img-fail');
+    if (ind) { ind.textContent = '❌'; ind.classList.add('fail'); }
+  };
+  img.src = imgUrl;
 }
 
-function handleImgError(img) {
-  img.classList.add('error');
-  // emoji-bg 自動顯示（預設可見）
-}
-
+/* ── 渲染商品 ── */
 function renderProducts() {
   let list = [...PRODUCTS];
   if (currentCat !== '全部') list = list.filter(p => p.cat === currentCat);
@@ -225,54 +259,61 @@ function renderProducts() {
   const noRes = document.getElementById('noResults');
   document.getElementById('resultCount').innerHTML = `顯示 <strong>${list.length}</strong> 件商品`;
 
-  if (!list.length) { grid.innerHTML = ''; noRes.style.display='block'; return; }
+  if (!list.length) { grid.innerHTML=''; noRes.style.display='block'; return; }
   noRes.style.display = 'none';
 
+  const b4 = catBadge;
   grid.innerHTML = list.map(p => {
-    const b = catBadge[p.cat] || {cls:'badge-robot', label:p.cat};
-    const hot = p.sales > 5 ? '<span class=\"s-card-hot\">🔥 熱銷</span>' : '';
-    const hasImg = p.img && p.img.length > 0;
-    const imgTag = hasImg
-      ? `<img class="product-img" src="${p.img}" alt="${p.name}" loading="lazy">`
-      : '';
+    const b = b4[p.cat] || {cls:'badge-robot',label:p.cat};
+    const hot = p.sales > 5 ? '<span class=\"s-hot\">🔥 熱銷</span>' : '';
     const gradient = p.gradient || 'linear-gradient(135deg,#0f1f0f,#111)';
     const accent = p.accent || '#50fa7b';
-
     return `
 <a class="s-card" href="${p.url}" target="_blank" rel="noopener" style="--ac:${accent}">
-  <div class="s-card-thumb" style="background:${gradient}">
-    ${imgTag}
-    <div class="emoji-bg">
-      <span class="emoji-icon">${p.emoji}</span>
-      <span class="emoji-cat" style="color:${accent}">${p.cat}</span>
+  <div class="s-thumb" style="--grad:${gradient}"
+       data-shopee-url="${p.url}">
+    <div class="shimmer"></div>
+    <img class="real-img" src="" alt="${p.name}" loading="lazy">
+    <div class="emoji-wrap">
+      <span class="e-icon">${p.emoji}</span>
+      <span class="e-cat" style="color:${accent}">${p.cat}</span>
     </div>
-    <span class="s-card-badge ${b.cls}">${b.label}</span>
+    <span class="s-badge ${b.cls}">${b.label}</span>
     ${hot}
-    <div class="shopee-overlay"><span>🛒 前往蝦皮</span></div>
+    <div class="s-overlay"><span>🛒 前往蝦皮</span></div>
+    <span class="og-indicator" title="OG圖片">⏳</span>
   </div>
-  <div class="s-card-body">
-    <div class="s-card-name">${p.name}</div>
-    <div class="s-card-meta">
-      <span class="s-card-store">🏪 ${p.store}</span>
-      <span class="s-card-sales">售出 ${p.sales}</span>
+  <div class="s-body">
+    <div class="s-name">${p.name}</div>
+    <div class="s-meta">
+      <span class="s-store">🏪 ${p.store}</span>
+      <span class="s-sales">售出 ${p.sales}</span>
     </div>
-    <div class="s-card-bottom">
-      <div class="s-card-price-row">
-        <span class="s-card-price">NT$ ${p.price.toLocaleString()}</span>
-        <span class="s-card-commission">分潤 ${p.commission}</span>
-        <span class="s-card-rate">${p.rate}</span>
+    <div class="s-bottom">
+      <div class="s-price-row">
+        <span class="s-price">NT$ ${p.price.toLocaleString()}</span>
+        <span class="s-comm">分潤 ${p.commission}</span>
+        <span class="s-rate">${p.rate}</span>
       </div>
-      <span class="s-card-btn">🛒 前往蝦皮購買</span>
+      <span class="s-btn">🛒 前往蝦皮購買</span>
     </div>
   </div>
 </a>`;
   }).join('');
 
-  bindImgEvents();
+  // 註冊 Intersection Observer 懶載入
+  grid.querySelectorAll('.s-thumb[data-shopee-url]').forEach(thumb => {
+    observer.observe(thumb);
+  });
 }
 
-document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; renderProducts(); });
-document.getElementById('sortSelect').addEventListener('change', e => { currentSort = e.target.value; renderProducts(); });
+/* ── 事件 ── */
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value; renderProducts();
+});
+document.getElementById('sortSelect').addEventListener('change', e => {
+  currentSort = e.target.value; renderProducts();
+});
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
