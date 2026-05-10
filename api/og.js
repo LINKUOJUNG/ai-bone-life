@@ -1,21 +1,15 @@
 // api/og.js — Vercel Serverless Function
-// 後端代理：抓取蝦皮商品的 OG 圖片，繞過前端 CORS 限制
-// 快取 24 小時，減少重複請求
+// 後端代理：抓取蝦皮商品 OG 圖片，多策略輪替提升成功率
 
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=3600');
 
   const { url } = req.query;
-  if (!url) {
-    return res.status(400).json({ error: 'Missing url parameter' });
-  }
+  if (!url) return res.status(400).json({ error: 'Missing url' });
 
-  // 只允許蝦皮相關網域，防止濫用
-  const allowed = ['shopee.tw', 's.shopee.tw', 'shopee.com.tw'];
-  let targetUrl = url;
+  const allowed = ['shopee.tw', 's.shopee.tw'];
   try {
     const parsed = new URL(url);
     if (!allowed.some(d => parsed.hostname.endsWith(d))) {
@@ -25,89 +19,133 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid URL' });
   }
 
-  // 模擬 Facebook 爬蟲 User-Agent（蝦皮會對爬蟲回傳 SSR 完整 HTML）
-  const UA_LIST = [
+  // 多種 User-Agent 輪替策略
+  const UA_STRATEGIES = [
+    // 策略1: Facebook 爬蟲（蝦皮會回傳 SSR HTML）
     'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+    // 策略2: Googlebot
+    'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    // 策略3: Twitterbot
     'Twitterbot/1.0',
-    'LinkedInBot/1.0 (compatible; Mozilla/5.0; Apache-HttpClient +http://www.linkedin.com)',
+    // 策略4: LINE 預覽爬蟲
+    'Mozilla/5.0 (compatible; linepagebot/1.0; +https://line.me)',
+    // 策略5: Slack 預覽
     'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)',
   ];
-  const ua = UA_LIST[Math.floor(Math.random() * UA_LIST.length)];
 
-  try {
-    const response = await fetch(targetUrl, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        'User-Agent': ua,
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-      },
-    });
+  function decodeHTML(str) {
+    return str
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+  }
 
-    if (!response.ok) {
-      return res.status(200).json({ image: '', title: '', description: '', status: response.status });
-    }
-
-    const html = await response.text();
-
-    // 提取 OG meta tags（支援多種屬性順序格式）
+  function extractOG(html) {
     function getOG(prop) {
-      // 格式一：property="og:image" content="..."
+      // 格式一：property="..." content="..."
       let m = html.match(new RegExp(
-        `<meta[^>]+property=["']${prop}["'][^>]+content=["']([^"']+)["']`, 'i'
+        `<meta[^>]+property=["']${prop}["'][^>]+content=["']([^"']{4,})["']`, 'i'
       ));
-      if (m) return decodeHTML(m[1]);
-      // 格式二：content="..." property="og:image"
+      if (m) return decodeHTML(m[1].trim());
+      // 格式二：content="..." property="..."
       m = html.match(new RegExp(
-        `<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${prop}["']`, 'i'
+        `<meta[^>]+content=["']([^"']{4,})["'][^>]+property=["']${prop}["']`, 'i'
       ));
-      return m ? decodeHTML(m[1]) : '';
+      return m ? decodeHTML(m[1].trim()) : '';
     }
 
-    function decodeHTML(str) {
-      return str
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .replace(/&nbsp;/g, ' ');
+    // 也嘗試 twitter:image
+    function getTwitter(prop) {
+      let m = html.match(new RegExp(
+        `<meta[^>]+name=["']${prop}["'][^>]+content=["']([^"']{4,})["']`, 'i'
+      ));
+      if (m) return decodeHTML(m[1].trim());
+      m = html.match(new RegExp(
+        `<meta[^>]+content=["']([^"']{4,})["'][^>]+name=["']${prop}["']`, 'i'
+      ));
+      return m ? decodeHTML(m[1].trim()) : '';
     }
 
-    const image       = getOG('og:image');
-    const title       = getOG('og:title');
-    const description = getOG('og:description');
-
-    // 也嘗試抓 JSON-LD 中的圖片（部分蝦皮頁面用這種格式）
+    // 嘗試 JSON-LD
     let ldImage = '';
-    const ldMatch = html.match(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i);
+    const ldMatch = html.match(
+      /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/i
+    );
     if (ldMatch) {
       try {
         const ld = JSON.parse(ldMatch[1]);
-        ldImage = ld?.image?.[0] || ld?.image || '';
+        const imgVal = ld?.image?.[0] || ld?.image || '';
+        if (typeof imgVal === 'string' && imgVal.startsWith('http')) ldImage = imgVal;
+        else if (imgVal?.url) ldImage = imgVal.url;
       } catch {}
     }
 
-    const finalImage = image || ldImage;
+    // 嘗試 Shopee 特有的 __NEXT_DATA__ JSON
+    let nextImage = '';
+    const nextMatch = html.match(/<script id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/i);
+    if (nextMatch) {
+      try {
+        const next = JSON.parse(nextMatch[1]);
+        const item = next?.props?.pageProps?.initialState?.itemReducer?.item;
+        if (item?.images?.[0]) {
+          nextImage = `https://cf.shopee.tw/file/${item.images[0]}_tn`;
+        }
+      } catch {}
+    }
 
-    return res.status(200).json({
-      image: finalImage,
-      title,
-      description,
-      cached: false,
-    });
+    // 嘗試直接找 cf.shopee.tw 圖片 URL
+    const cfMatch = html.match(/https:\/\/cf\.shopee\.tw\/file\/[a-zA-Z0-9_]+/);
+    const cfImage = cfMatch ? cfMatch[0] : '';
 
-  } catch (err) {
-    console.error('OG fetch error:', err.message);
-    return res.status(200).json({
-      image: '',
-      title: '',
-      description: '',
-      error: err.message,
-    });
+    const ogImage = getOG('og:image');
+    const twImage = getTwitter('twitter:image');
+
+    return {
+      image: ogImage || twImage || ldImage || nextImage || cfImage,
+      title: getOG('og:title') || getTwitter('twitter:title'),
+      description: getOG('og:description') || getTwitter('twitter:description'),
+    };
   }
+
+  // 依序嘗試各種 UA 策略
+  for (const ua of UA_STRATEGIES) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+
+      const response = await fetch(url, {
+        method: 'GET',
+        redirect: 'follow',
+        signal: controller.signal,
+        headers: {
+          'User-Agent': ua,
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'Accept-Language': 'zh-TW,zh;q=0.9,en;q=0.7',
+          'Accept-Encoding': 'gzip, deflate',
+          'Cache-Control': 'no-cache',
+          'Sec-Fetch-Mode': 'navigate',
+          'Sec-Fetch-Site': 'none',
+          'Upgrade-Insecure-Requests': '1',
+        },
+      });
+
+      clearTimeout(timeout);
+
+      if (!response.ok) continue;
+
+      const html = await response.text();
+      const result = extractOG(html);
+
+      if (result.image) {
+        return res.status(200).json({ ...result, ua_used: ua.split('/')[0] });
+      }
+      // 有 HTML 但沒圖片，繼續下一個策略
+    } catch (e) {
+      // 逾時或網路錯誤，繼續下一個策略
+      continue;
+    }
+  }
+
+  // 所有策略都失敗
+  return res.status(200).json({ image: '', title: '', description: '' });
 }
