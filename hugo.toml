@@ -37,6 +37,11 @@ title = 'AI 驅動的骨頭人生'
     url = "/about/"
     weight = 30
   [[menu.main]]
+    identifier = "shopee"
+    name = "🛒 AI玩具商城"
+    url = "/shopee/"
+    weight = 35
+  [[menu.main]]
     identifier = "search"
     name = "搜尋"
     url = "/search/"

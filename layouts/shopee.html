@@ -1,0 +1,327 @@
+{{ define "main" }}
+<style>
+/* ── 商城頁面樣式 ── */
+.shopee-hero {
+  background: linear-gradient(135deg, #0a0a0a 0%, #0d1a0d 60%, #0a0a0a 100%);
+  border-bottom: 1px solid #1f2d1f;
+  padding: 48px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.shopee-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(80,250,123,0.08) 0%, transparent 70%);
+}
+.shopee-hero h1 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: #f8f8f2;
+  margin-bottom: 8px;
+}
+.shopee-hero h1 span { color: #50fa7b; }
+.shopee-hero p { color: #6272a4; font-size: 0.9rem; }
+.shopee-stats {
+  display: flex; gap: 32px; justify-content: center; margin-top: 20px; flex-wrap: wrap;
+}
+.shopee-stat { text-align: center; }
+.shopee-stat-num { font-size: 1.6rem; font-weight: 700; color: #50fa7b; }
+.shopee-stat-label { font-size: 0.72rem; color: #6272a4; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── 搜尋 & 篩選列 ── */
+.shopee-controls {
+  background: #111;
+  border-bottom: 1px solid #1f2d1f;
+  padding: 16px 24px;
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  position: sticky; top: 60px; z-index: 50;
+}
+.shopee-search {
+  flex: 1; min-width: 200px;
+  background: #161616; border: 1px solid #1f2d1f;
+  color: #f8f8f2; padding: 9px 16px; border-radius: 8px;
+  font-size: 0.88rem; outline: none;
+  transition: border-color 0.2s;
+}
+.shopee-search:focus { border-color: #50fa7b; box-shadow: 0 0 0 2px rgba(80,250,123,0.1); }
+.shopee-search::placeholder { color: #6272a4; }
+.filter-btn {
+  padding: 8px 16px; border-radius: 8px; border: 1px solid #1f2d1f;
+  background: #161616; color: #6272a4; cursor: pointer;
+  font-size: 0.8rem; font-weight: 500; transition: all 0.2s;
+  white-space: nowrap;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: #50fa7b; color: #0a0a0a; border-color: #50fa7b; font-weight: 700;
+}
+.sort-select {
+  background: #161616; border: 1px solid #1f2d1f; color: #6272a4;
+  padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;
+}
+.sort-select:focus { outline: none; border-color: #50fa7b; }
+
+/* ── 商品計數 ── */
+.shopee-count {
+  padding: 12px 24px;
+  color: #6272a4; font-size: 0.8rem;
+}
+.shopee-count strong { color: #50fa7b; }
+
+/* ── 商品網格 ── */
+.shopee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 16px 24px 48px;
+  max-width: 1400px; margin: 0 auto;
+}
+
+/* ── 商品卡片 ── */
+.s-card {
+  background: #161616;
+  border: 1px solid #1f2d1f;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+  display: flex; flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+}
+.s-card:hover {
+  transform: translateY(-5px);
+  border-color: #50fa7b;
+  box-shadow: 0 12px 36px rgba(80,250,123,0.12);
+  text-decoration: none;
+}
+.s-card-top {
+  position: relative;
+  height: 160px;
+  background: linear-gradient(135deg, #0f1f0f, #111);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+}
+.s-card-badge {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 0.65rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 4px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.badge-plush    { background: rgba(255,121,198,0.15); color: #ff79c6; border: 1px solid rgba(255,121,198,0.3); }
+.badge-robot    { background: rgba(139,233,253,0.15); color: #8be9fd; border: 1px solid rgba(139,233,253,0.3); }
+.badge-chess    { background: rgba(189,147,249,0.15); color: #bd93f9; border: 1px solid rgba(189,147,249,0.3); }
+.badge-edu      { background: rgba(255,184,108,0.15); color: #ffb86c; border: 1px solid rgba(255,184,108,0.3); }
+.s-card-hot {
+  position: absolute; top: 10px; right: 10px;
+  background: #ff5555; color: #fff;
+  font-size: 0.6rem; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px;
+}
+.s-card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+.s-card-name {
+  font-size: 0.82rem; font-weight: 600; color: #f8f8f2;
+  line-height: 1.5; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.s-card-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+}
+.s-card-store { font-size: 0.7rem; color: #6272a4; }
+.s-card-sales { font-size: 0.7rem; color: #6272a4; }
+.s-card-bottom { margin-top: auto; }
+.s-card-price-row {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;
+}
+.s-card-price { font-size: 1.15rem; font-weight: 800; color: #50fa7b; }
+.s-card-commission {
+  font-size: 0.7rem; color: #6272a4;
+  background: rgba(80,250,123,0.06); padding: 2px 6px; border-radius: 4px;
+}
+.s-card-rate {
+  font-size: 0.68rem; color: #ffb86c;
+  background: rgba(255,184,108,0.08); padding: 2px 6px; border-radius: 4px;
+  margin-left: auto;
+}
+.s-card-btn {
+  display: block; text-align: center;
+  background: #50fa7b; color: #0a0a0a !important;
+  padding: 9px 0; border-radius: 8px;
+  font-weight: 700; font-size: 0.8rem;
+  text-decoration: none !important;
+  transition: background 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.04em;
+}
+.s-card-btn:hover {
+  background: #8be9fd !important;
+  box-shadow: 0 0 16px rgba(139,233,253,0.3);
+}
+
+/* ── 無結果 ── */
+.no-results {
+  text-align: center; padding: 80px 24px;
+  color: #6272a4; display: none;
+}
+.no-results .icon { font-size: 3rem; margin-bottom: 12px; }
+
+/* ── RWD ── */
+@media (max-width: 600px) {
+  .shopee-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+  .s-card-top { height: 120px; font-size: 2.5rem; }
+  .shopee-controls { top: 0; }
+}
+</style>
+
+<div class="shopee-hero">
+  <h1>💀 骨頭人 <span>AI 玩具商城</span></h1>
+  <p>精選蝦皮聯盟商品，骨頭人幫你篩過了，每一件都是真材實料</p>
+  <div class="shopee-stats">
+    <div class="shopee-stat">
+      <div class="shopee-stat-num" id="total-count">60</div>
+      <div class="shopee-stat-label">精選商品</div>
+    </div>
+    <div class="shopee-stat">
+      <div class="shopee-stat-num">4</div>
+      <div class="shopee-stat-label">商品分類</div>
+    </div>
+    <div class="shopee-stat">
+      <div class="shopee-stat-num">最高 19%</div>
+      <div class="shopee-stat-label">聯盟分潤</div>
+    </div>
+  </div>
+</div>
+
+<div class="shopee-controls">
+  <input type="text" class="shopee-search" id="searchInput" placeholder="🔍 搜尋商品名稱..." />
+  <button class="filter-btn active" data-cat="全部">全部</button>
+  <button class="filter-btn" data-cat="毛絨陪伴玩具">🧸 毛絨陪伴</button>
+  <button class="filter-btn" data-cat="AI機器人">🤖 AI機器人</button>
+  <button class="filter-btn" data-cat="早教學習機">📚 早教學習</button>
+  <button class="filter-btn" data-cat="AI棋盤桌遊">♟️ 棋盤桌遊</button>
+  <select class="sort-select" id="sortSelect">
+    <option value="default">預設排序</option>
+    <option value="price-asc">價格低到高</option>
+    <option value="price-desc">價格高到低</option>
+    <option value="commission-desc">分潤高到低</option>
+    <option value="sales-desc">銷售量高到低</option>
+  </select>
+</div>
+
+<div class="shopee-count" id="resultCount">顯示 <strong>60</strong> 件商品</div>
+
+<div class="shopee-grid" id="productGrid"></div>
+<div class="no-results" id="noResults">
+  <div class="icon">💀</div>
+  <div>這裡什麼都沒有，骨頭人也找不到你要的商品。</div>
+</div>
+
+<script>
+const products = {{ $.Site.Data.shopee_products.products | jsonify }};
+
+let currentCat = '全部';
+let currentSearch = '';
+let currentSort = 'default';
+
+const catBadge = {
+  '毛絨陪伴玩具': { cls: 'badge-plush', label: '毛絨陪伴' },
+  'AI機器人':     { cls: 'badge-robot', label: 'AI機器人' },
+  'AI棋盤桌遊':   { cls: 'badge-chess', label: '棋盤桌遊' },
+  '早教學習機':   { cls: 'badge-edu',   label: '早教學習' }
+};
+
+function renderProducts() {
+  let list = [...products];
+
+  // Filter by category
+  if (currentCat !== '全部') {
+    list = list.filter(p => p.cat === currentCat);
+  }
+
+  // Filter by search
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(q) || p.store.toLowerCase().includes(q));
+  }
+
+  // Sort
+  if (currentSort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+  if (currentSort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (currentSort === 'sales-desc') list.sort((a,b) => b.sales - a.sales);
+  if (currentSort === 'commission-desc') {
+    list.sort((a,b) => {
+      const av = parseFloat(a.commission.replace('$',''));
+      const bv = parseFloat(b.commission.replace('$',''));
+      return bv - av;
+    });
+  }
+
+  const grid = document.getElementById('productGrid');
+  const noRes = document.getElementById('noResults');
+  const count = document.getElementById('resultCount');
+
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    count.innerHTML = '顯示 <strong>0</strong> 件商品';
+    return;
+  }
+
+  noRes.style.display = 'none';
+  count.innerHTML = `顯示 <strong>${list.length}</strong> 件商品`;
+
+  grid.innerHTML = list.map(p => {
+    const badge = catBadge[p.cat] || { cls: 'badge-robot', label: p.cat };
+    const isHot = p.sales > 5;
+    return `
+    <a class="s-card" href="${p.url}" target="_blank" rel="noopener" onclick="trackClick('${p.id}')">
+      <div class="s-card-top">
+        <span class="s-card-badge ${badge.cls}">${badge.label}</span>
+        ${isHot ? '<span class="s-card-hot">🔥 熱銷</span>' : ''}
+        <span>${p.emoji}</span>
+      </div>
+      <div class="s-card-body">
+        <div class="s-card-name">${p.name}</div>
+        <div class="s-card-meta">
+          <span class="s-card-store">🏪 ${p.store}</span>
+          <span class="s-card-sales">售出 ${p.sales}</span>
+        </div>
+        <div class="s-card-bottom">
+          <div class="s-card-price-row">
+            <span class="s-card-price">NT$ ${p.price.toLocaleString()}</span>
+            <span class="s-card-commission">分潤 ${p.commission}</span>
+            <span class="s-card-rate">${p.rate}</span>
+          </div>
+          <span class="s-card-btn">前往蝦皮購買 →</span>
+        </div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function trackClick(id) {
+  console.log('Affiliate click:', id);
+}
+
+// Events
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value;
+  renderProducts();
+});
+
+document.getElementById('sortSelect').addEventListener('change', e => {
+  currentSort = e.target.value;
+  renderProducts();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderProducts();
+  });
+});
+
+renderProducts();
+</script>
+{{ end }}
