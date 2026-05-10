@@ -3,53 +3,40 @@
 <!-- 頁面載入進度條 -->
 <div id="page-load-bar"></div>
 
-<!-- 文章閱讀進度條（文章頁才顯示） -->
+<!-- 文章閱讀進度條 -->
 {{ if .IsPage }}
 <div id="reading-progress-bar"></div>
 {{ end }}
 
 <script>
-// =============================================
-// 文章閱讀進度條
-// =============================================
+// ── 文章閱讀進度條 ──
 document.addEventListener('DOMContentLoaded', function () {
-    var progressBar = document.getElementById('reading-progress-bar');
-    if (!progressBar) return;
-
-    window.addEventListener('scroll', function () {
-        var scrollTop = window.scrollY || document.documentElement.scrollTop;
-        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        progressBar.style.width = progress + '%';
-    });
+  var bar = document.getElementById('reading-progress-bar');
+  if (!bar) return;
+  window.addEventListener('scroll', function () {
+    var st = window.scrollY || document.documentElement.scrollTop;
+    var dh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (dh > 0 ? (st / dh) * 100 : 0) + '%';
+  });
 });
 
-// =============================================
-// 打字機效果：針對首頁歡迎標語
-// =============================================
+// ── 打字機效果（首頁英雄標語）──
 document.addEventListener('DOMContentLoaded', function () {
-    var homeTitle = document.querySelector('.home-info h1, #home-info h1');
-    if (!homeTitle) return;
-
-    var originalText = homeTitle.textContent;
-    homeTitle.textContent = '';
-    homeTitle.style.borderRight = '3px solid #50fa7b';
-    homeTitle.style.display = 'inline-block';
-
-    var i = 0;
-    var speed = 80; // 每個字的速度（毫秒）
-
-    function typeWriter() {
-        if (i < originalText.length) {
-            homeTitle.textContent += originalText.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        } else {
-            // 打完後游標繼續閃爍
-            homeTitle.style.animation = 'blink-caret 0.75s step-end infinite';
-        }
+  var title = document.querySelector('.home-info h1, #home-info h1');
+  if (!title) return;
+  var text = title.textContent;
+  title.textContent = '';
+  title.style.borderRight = '3px solid #ff6b35';
+  title.style.display = 'inline-block';
+  var i = 0;
+  function type() {
+    if (i < text.length) {
+      title.textContent += text.charAt(i++);
+      setTimeout(type, 70);
+    } else {
+      title.style.animation = 'blink-caret 0.8s step-end infinite';
     }
-
-    setTimeout(typeWriter, 400); // 稍微延遲後開始打字
+  }
+  setTimeout(type, 300);
 });
 </script>
