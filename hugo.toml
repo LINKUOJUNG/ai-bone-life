@@ -1,6 +1,9 @@
 baseURL = 'https://ai-bone-life.vercel.app/'
 languageCode = 'zh-tw'
 title = 'AI 驅動的骨頭人生'
+enableRobotsTXT = true
+enableEmoji = true
+summaryLength = 80
 
 [params]
   description = "在這裡，我們不談勵志，只談如何在這場 AI 的生存遊戲中，用最厭世的姿勢變現。"

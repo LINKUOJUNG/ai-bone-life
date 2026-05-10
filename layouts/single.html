@@ -1,67 +1,78 @@
-{{- define "main" }}
+{{ define "main" }}
+<div class="blog-layout">
 
-<article class="post-single">
-  <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
-      {{- if .Draft }}
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-      {{- end }}
-    </h1>
-    {{- if .Description }}
-    <div class="post-description">
-      {{ .Description }}
-    </div>
-    {{- end }}
-    {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
-      {{- partial "translation_list.html" . -}}
-      {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
-    </div>
-    {{- end }}
-  </header>
-  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
-  {{- end }}
+  <!-- 文章主欄 -->
+  <div class="blog-main">
+    {{ .Content }}
 
-  {{- if .Content }}
-  <div class="post-content md-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    <!-- Giscus 留言系統 -->
+    <div class="comments-section">
+      <h3 class="comments-title">💬 留言討論</h3>
+      <p class="comments-sub">用 GitHub 帳號登入即可留言，一起討論骨頭人的觀點</p>
+      <div class="giscus-wrap">
+        <script src="https://giscus.app/client.js"
+          data-repo="LINKUOJUNG/ai-bone-life"
+          data-repo-id="R_kgDOSZVikg"
+          data-category="General"
+          data-category-id=""
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="dark"
+          data-lang="zh-TW"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </div>
   </div>
-  {{- end }}
 
-  {{- partial "extend_post_content.html" . }}
+  <!-- 側邊欄 -->
+  <aside class="blog-sidebar">
 
-  <footer class="post-footer">
-    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-      {{- end }}
-    </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    {{- partial "share_icons.html" . -}}
-    {{- end }}
-  </footer>
+    <!-- 關於骨頭人 -->
+    <div class="sidebar-card">
+      <div class="sidebar-avatar">💀</div>
+      <h4>骨頭人阿榮</h4>
+      <p>厭世但清醒的 AI 時代觀察者，用黑色幽默說真話。</p>
+      <a href="https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q" target="_blank" class="sidebar-yt-btn">▶ 訂閱 YouTube</a>
+    </div>
 
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
-  {{- end }}
-</article>
+    <!-- 分類 -->
+    <div class="sidebar-card">
+      <h4 class="sidebar-card-title">🗂️ 文章分類</h4>
+      <div class="sidebar-tags">
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+        <a href="/tags/{{ $name | urlize }}/" class="sidebar-tag">
+          {{ $name }} <span>{{ len $taxonomy }}</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
 
-{{- end }}{{/* end main */}}
+    <!-- 精選文章 -->
+    <div class="sidebar-card">
+      <h4 class="sidebar-card-title">🔥 精選文章</h4>
+      <div class="sidebar-posts">
+        {{ range first 5 (where .Site.RegularPages "Section" "posts") }}
+        <a href="{{ .RelPermalink }}" class="sidebar-post-item">
+          <span class="sidebar-post-dot">▸</span>
+          <span>{{ .Title | truncate 35 }}</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+
+    <!-- AI 玩具商城 -->
+    <div class="sidebar-card sidebar-shopee">
+      <h4>🛒 AI 玩具商城</h4>
+      <p>精選 60 件蝦皮 AI 智能玩具，骨頭人幫你篩選好了</p>
+      <a href="/shopee/" class="sidebar-shopee-btn">進入商城 →</a>
+    </div>
+
+  </aside>
+</div>
+{{ end }}

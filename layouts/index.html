@@ -1,0 +1,256 @@
+{{ define "main" }}
+
+<!-- ══════════════════════════════════════════
+     HERO SECTION — EMO Robot × azopet.com 風格
+     ══════════════════════════════════════════ -->
+<section class="hero-section">
+  <div class="hero-bg-glow hero-glow-1"></div>
+  <div class="hero-bg-glow hero-glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">💀 AI 驅動的骨頭人生</div>
+      <h1 class="hero-title">
+        在這場 AI 時代，<br>
+        <span class="hero-title-accent">用最厭世的姿勢</span><br>
+        苟延殘喘
+      </h1>
+      <p class="hero-desc">職場黑色幽默 × AI 觀點 × 聯盟行銷 — 骨頭人阿榮的生存指南</p>
+      <div class="hero-ctas">
+        <a href="/posts/" class="hero-btn-primary">📖 閱讀文章</a>
+        <a href="/shopee/" class="hero-btn-secondary">🛒 AI 玩具商城</a>
+        <a href="https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q" target="_blank" class="hero-btn-ghost">▶ YouTube 頻道</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">41+</span>
+          <span class="hero-stat-label">深度文章</span>
+        </div>
+        <div class="hero-stat-div"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">60</span>
+          <span class="hero-stat-label">精選商品</span>
+        </div>
+        <div class="hero-stat-div"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">2</span>
+          <span class="hero-stat-label">核心主題</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-robot-card">
+        <div class="robot-emoji">🤖</div>
+        <div class="robot-speech">「骨頭人說：AI 沒有<br>你想的那麼厲害，<br>但也沒有你想的那麼廢。」</div>
+        <div class="robot-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     主題欄目導覽
+     ══════════════════════════════════════════ -->
+<section class="topics-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">🗂️ 探索骨頭人宇宙</h2>
+      <p class="section-sub">兩大核心方向，帶你在 AI 時代活下去</p>
+    </div>
+    <div class="topics-grid">
+      <a href="/tags/職場生存/" class="topic-card topic-card-orange">
+        <div class="topic-icon">😤</div>
+        <h3>職場煉獄</h3>
+        <p>老闆畫的餅、加班文化、職場鬼故事——骨頭人陪你罵個痛快</p>
+        <span class="topic-link">進入職場區 →</span>
+      </a>
+      <a href="/tags/ai-觀點/" class="topic-card topic-card-blue">
+        <div class="topic-icon">🤖</div>
+        <h3>AI 照妖鏡</h3>
+        <p>AI 裁員潮、免費工具陷阱、AI 割韭菜——骨頭人幫你看穿真相</p>
+        <span class="topic-link">進入 AI 區 →</span>
+      </a>
+      <a href="/shopee/" class="topic-card topic-card-shopee">
+        <div class="topic-icon">🛒</div>
+        <h3>AI 玩具商城</h3>
+        <p>骨頭人精選 60 件蝦皮 AI 智能玩具，有圖有價有推廣連結</p>
+        <span class="topic-link">進入商城 →</span>
+      </a>
+      <a href="/about/" class="topic-card topic-card-purple">
+        <div class="topic-icon">💀</div>
+        <h3>關於骨頭人</h3>
+        <p>一個厭世但清醒的 AI 時代觀察者，用黑色幽默說真話</p>
+        <span class="topic-link">認識骨頭人 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     最新文章網格（azopet 部落格風格）
+     ══════════════════════════════════════════ -->
+<section class="posts-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">📝 最新文章</h2>
+      <a href="/posts/" class="section-more">查看全部 →</a>
+    </div>
+    <div class="posts-grid">
+      {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
+      <article class="post-card">
+        <div class="post-card-top">
+          <div class="post-card-tags">
+            {{ range first 2 .Params.tags }}
+            <span class="post-tag">{{ . }}</span>
+            {{ end }}
+          </div>
+          <time class="post-card-date">{{ .Date.Format "2006.01.02" }}</time>
+        </div>
+        <h3 class="post-card-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h3>
+        <p class="post-card-desc">{{ .Description | default (.Summary | truncate 80) }}</p>
+        <div class="post-card-footer">
+          <span class="post-read-time">⏱ {{ .ReadingTime }} 分鐘</span>
+          <a href="{{ .RelPermalink }}" class="post-card-read">閱讀全文 →</a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     AI 系列精選（3 欄特色卡）
+     ══════════════════════════════════════════ -->
+<section class="featured-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">🔥 骨頭人精選</h2>
+      <p class="section-sub">最受歡迎的觀點文章</p>
+    </div>
+    <div class="featured-grid">
+      <a href="/posts/46-ai-layoff-wave/" class="featured-card">
+        <div class="featured-num">01</div>
+        <h3>AI 裁員潮，裁的不是你以為的那個人</h3>
+        <p>誰真的會被 AI 取代？答案可能讓你意外。</p>
+        <span class="featured-tag">AI 觀點</span>
+      </a>
+      <a href="/posts/16-workplace-ghost-stories/" class="featured-card featured-card-2">
+        <div class="featured-num">02</div>
+        <h3>職場鬼故事：那些比鬼還可怕的人類行為</h3>
+        <p>功勞搶奪鬼、道德綁架鬼⋯⋯你認識幾種？</p>
+        <span class="featured-tag">職場生存</span>
+      </a>
+      <a href="/posts/01-truth-of-traffic-monetization/" class="featured-card featured-card-3">
+        <div class="featured-num">03</div>
+        <h3>流量變現的真相：你以為在賺錢，其實只是在幫別人數鈔票</h3>
+        <p>搞清楚轉換機制，才是真正的變現。</p>
+        <span class="featured-tag">變現策略</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     AI 玩具商城預覽
+     ══════════════════════════════════════════ -->
+<section class="shopee-preview-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">🤖 AI 玩具商城</h2>
+      <a href="/shopee/" class="section-more">查看全部 60 件 →</a>
+    </div>
+    <div class="shopee-preview-banner">
+      <div class="shopee-preview-text">
+        <h3>蝦皮聯盟精選商品</h3>
+        <p>骨頭人幫你篩選，每一件都是真材實料的 AI 智能玩具</p>
+        <div class="shopee-preview-stats">
+          <span>🧸 毛絨陪伴玩具</span>
+          <span>🤖 AI 機器人</span>
+          <span>📚 早教學習機</span>
+          <span>♟️ 棋盤桌遊</span>
+        </div>
+        <a href="/shopee/" class="shopee-preview-btn">🛒 進入商城</a>
+      </div>
+      <div class="shopee-preview-emojis">
+        <span class="sp-emoji sp-1">🤖</span>
+        <span class="sp-emoji sp-2">🧸</span>
+        <span class="sp-emoji sp-3">♟️</span>
+        <span class="sp-emoji sp-4">📚</span>
+        <span class="sp-emoji sp-5">🐕</span>
+        <span class="sp-emoji sp-6">🦕</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     讀者見證牆（azopet 風格）
+     ══════════════════════════════════════════ -->
+<section class="testimonial-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">💬 讀者說的話</h2>
+      <p class="section-sub">骨頭人的湯，喝了都說苦但有效</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p>看了骨頭人的「老闆畫的大餅」，才發現我追了三年那個永遠不熟的餅。現在開始建立副業了。</p>
+        <div class="testimonial-author">
+          <span class="testimonial-avatar">🙋‍♂️</span>
+          <div>
+            <strong>職場骨頭人</strong>
+            <small>台北 · 工程師</small>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p>「AI 沒那麼厲害」這篇真的讓我冷靜下來，停止無腦跟風 AI 課程，省了很多冤枉錢。</p>
+        <div class="testimonial-author">
+          <span class="testimonial-avatar">🙋‍♀️</span>
+          <div>
+            <strong>清醒的骨頭</strong>
+            <small>台中 · 行銷人</small>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p>AI 玩具商城幫我找到兒子的生日禮物，還有聯盟分潤，這才是真正的雙贏。</p>
+        <div class="testimonial-author">
+          <span class="testimonial-avatar">👨‍👦</span>
+          <div>
+            <strong>骨頭爸爸</strong>
+            <small>新竹 · 業務</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-stats">
+      <div class="ts"><span class="ts-num">41+</span><span class="ts-label">篇深度文章</span></div>
+      <div class="ts"><span class="ts-num">60</span><span class="ts-label">件聯盟商品</span></div>
+      <div class="ts"><span class="ts-num">100%</span><span class="ts-label">骨頭原味</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     訂閱 CTA（底部行動召喚）
+     ══════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-content">
+    <h2>開始你的骨頭人生存之旅</h2>
+    <p>在這個 AI 時代，清醒才是最值錢的能力</p>
+    <div class="cta-buttons">
+      <a href="/posts/" class="cta-btn-primary">📖 開始閱讀</a>
+      <a href="https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q" target="_blank" class="cta-btn-secondary">▶ 訂閱 YouTube</a>
+    </div>
+  </div>
+</section>
+
+{{ end }}
