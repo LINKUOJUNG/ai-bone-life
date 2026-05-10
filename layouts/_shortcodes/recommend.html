@@ -1,0 +1,12 @@
+{{- /*
+  使用方式：
+  {{< recommend title="工具名稱" desc="簡短說明這個工具的用途" url="https://你的推廣連結" btn="立即體驗" >}}
+*/ -}}
+
+<div class="bone-recommend">
+    <div class="bone-recommend-title">{{ .Get "title" }}</div>
+    <div class="bone-recommend-desc">{{ .Get "desc" }}</div>
+    <a href="{{ .Get "url" }}" class="bone-recommend-btn" target="_blank" rel="noopener">
+        {{ if .Get "btn" }}{{ .Get "btn" }}{{ else }}了解更多 →{{ end }}
+    </a>
+</div>

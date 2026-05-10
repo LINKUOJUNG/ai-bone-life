@@ -1,4 +1,55 @@
-{{- /* Head custom content area start */ -}}
-{{- /*     Insert any custom code (web-analytics, resources, etc.) - it will appear in the <head></head> section of every page. */ -}}
-{{- /*     Can be overwritten by partial with the same name in the global layouts. */ -}}
-{{- /* Head custom content area end */ -}}
+{{- /* 頁面載入進度條 + 文章閱讀進度條 + 打字機效果 */ -}}
+
+<!-- 頁面載入進度條 -->
+<div id="page-load-bar"></div>
+
+<!-- 文章閱讀進度條（文章頁才顯示） -->
+{{ if .IsPage }}
+<div id="reading-progress-bar"></div>
+{{ end }}
+
+<script>
+// =============================================
+// 文章閱讀進度條
+// =============================================
+document.addEventListener('DOMContentLoaded', function () {
+    var progressBar = document.getElementById('reading-progress-bar');
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+    });
+});
+
+// =============================================
+// 打字機效果：針對首頁歡迎標語
+// =============================================
+document.addEventListener('DOMContentLoaded', function () {
+    var homeTitle = document.querySelector('.home-info h1, #home-info h1');
+    if (!homeTitle) return;
+
+    var originalText = homeTitle.textContent;
+    homeTitle.textContent = '';
+    homeTitle.style.borderRight = '3px solid #50fa7b';
+    homeTitle.style.display = 'inline-block';
+
+    var i = 0;
+    var speed = 80; // 每個字的速度（毫秒）
+
+    function typeWriter() {
+        if (i < originalText.length) {
+            homeTitle.textContent += originalText.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            // 打完後游標繼續閃爍
+            homeTitle.style.animation = 'blink-caret 0.75s step-end infinite';
+        }
+    }
+
+    setTimeout(typeWriter, 400); // 稍微延遲後開始打字
+});
+</script>

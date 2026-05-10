@@ -1,6 +1,168 @@
+/* ============================================
+   AI 驅動的骨頭人生 - 自訂樣式
+   ============================================ */
+
+/* 基底：暗黑底色、等寬字體 */
 body {
     font-family: 'Courier New', Courier, monospace;
     background-color: #0d0d0d !important;
 }
+
+/* 連結：螢光綠駭客風 */
 a { color: #50fa7b !important; }
-h1, h2, h3 { color: #f8f8f2 !important; }
+a:hover { color: #8be9fd !important; text-decoration: underline; }
+
+/* 標題顏色 */
+h1, h2, h3, h4 { color: #f8f8f2 !important; }
+
+/* ============================================
+   第一項：打字機效果
+   ============================================ */
+.typewriter-text {
+    overflow: hidden;
+    border-right: 3px solid #50fa7b;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    display: inline-block;
+    max-width: 100%;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #50fa7b; }
+}
+
+/* 首頁歡迎標語 */
+.home-info h1,
+#home-info h1,
+.entry-hint-parent h1 {
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    overflow: hidden;
+    border-right: 3px solid #50fa7b;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* ============================================
+   第二項：頁面載入進度條
+   ============================================ */
+#reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #50fa7b, #8be9fd);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 8px #50fa7b;
+}
+
+/* 頁面載入動畫：頂端閃過一次 */
+#page-load-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #50fa7b, #8be9fd, #ff79c6);
+    z-index: 9999;
+    box-shadow: 0 0 10px #50fa7b;
+    animation: page-load 0.8s ease-out forwards;
+}
+
+@keyframes page-load {
+    0%   { width: 0%; opacity: 1; }
+    80%  { width: 100%; opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+}
+
+/* ============================================
+   第三項：聯盟行銷推薦框
+   ============================================ */
+.bone-recommend {
+    border: 1px solid #50fa7b;
+    border-left: 4px solid #50fa7b;
+    background-color: #0f1f0f;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 32px 0;
+    position: relative;
+}
+
+.bone-recommend::before {
+    content: "💀 骨頭人推薦";
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    background-color: #0d0d0d;
+    color: #50fa7b;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0 8px;
+    letter-spacing: 0.1em;
+}
+
+.bone-recommend-title {
+    color: #f8f8f2 !important;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.bone-recommend-desc {
+    color: #6272a4;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+.bone-recommend-btn {
+    display: inline-block;
+    background-color: #50fa7b;
+    color: #0d0d0d !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bone-recommend-btn:hover {
+    background-color: #8be9fd !important;
+    color: #0d0d0d !important;
+    box-shadow: 0 0 12px #50fa7b;
+    text-decoration: none !important;
+}
+
+/* ============================================
+   其他細節優化
+   ============================================ */
+
+/* 文章卡片 hover 浮起效果 */
+.post-entry {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #1a1a1a !important;
+}
+
+.post-entry:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(80, 250, 123, 0.15);
+    border-color: #50fa7b !important;
+}
+
+/* 導航列樣式 */
+.nav {
+    border-bottom: 1px solid #1a2b1a;
+}
+
+/* 頁腳樣式 */
+.footer {
+    border-top: 1px solid #1a2b1a;
+    color: #6272a4 !important;
+}
