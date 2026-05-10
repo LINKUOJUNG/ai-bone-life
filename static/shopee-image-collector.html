@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💀 骨頭人 蝦皮圖片收集器</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0a0a0a; color: #f8f8f2;
+  font-family: 'Courier New', monospace;
+  min-height: 100vh; padding: 24px;
+}
+h1 { color: #50fa7b; font-size: 1.4rem; margin-bottom: 8px; }
+.subtitle { color: #6272a4; font-size: 0.85rem; margin-bottom: 24px; }
+.step {
+  background: #161616; border: 1px solid #1f2d1f;
+  border-radius: 12px; padding: 20px; margin-bottom: 16px;
+}
+.step-num {
+  background: #50fa7b; color: #0a0a0a;
+  font-weight: 700; font-size: 0.75rem;
+  padding: 2px 10px; border-radius: 4px;
+  display: inline-block; margin-bottom: 10px;
+}
+.step h3 { color: #f8f8f2; font-size: 0.95rem; margin-bottom: 8px; }
+.step p { color: #6272a4; font-size: 0.82rem; line-height: 1.7; }
+.btn {
+  display: inline-block; background: #50fa7b; color: #0a0a0a;
+  padding: 10px 20px; border-radius: 8px; border: none;
+  font-weight: 700; font-size: 0.88rem; cursor: pointer;
+  margin-top: 10px; transition: background 0.2s;
+}
+.btn:hover { background: #8be9fd; }
+.btn-orange { background: #ee4d2d; color: #fff; }
+.btn-orange:hover { background: #ff6b4a; }
+.btn-purple { background: #bd93f9; color: #0a0a0a; }
+.code-box {
+  background: #0d0d0d; border: 1px solid #1f2d1f;
+  border-radius: 8px; padding: 14px; margin-top: 10px;
+  font-size: 0.75rem; color: #50fa7b;
+  word-break: break-all; line-height: 1.6;
+  max-height: 150px; overflow-y: auto;
+  white-space: pre-wrap;
+}
+.result-area {
+  background: #0d0d0d; border: 1px solid #50fa7b;
+  border-radius: 8px; padding: 14px; margin-top: 12px;
+  font-size: 0.75rem; color: #f8f8f2;
+  min-height: 200px; max-height: 400px; overflow-y: auto;
+  white-space: pre-wrap; display: none;
+}
+.progress {
+  background: #1f2d1f; border-radius: 4px;
+  height: 8px; margin-top: 12px; overflow: hidden; display: none;
+}
+.progress-bar {
+  background: linear-gradient(90deg, #50fa7b, #8be9fd);
+  height: 100%; width: 0%; transition: width 0.3s;
+}
+.status { color: #6272a4; font-size: 0.8rem; margin-top: 8px; }
+.warning {
+  background: rgba(255,184,108,0.08); border: 1px solid rgba(255,184,108,0.3);
+  border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;
+  color: #ffb86c; font-size: 0.82rem; line-height: 1.6;
+}
+.product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 10px; margin-top: 12px; }
+.product-item {
+  background: #161616; border: 1px solid #1f2d1f; border-radius: 8px;
+  padding: 8px; text-align: center; font-size: 0.72rem;
+}
+.product-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 6px; }
+.product-item .img-placeholder {
+  width: 100%; height: 100px; background: #1f2d1f; border-radius: 4px;
+  margin-bottom: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+}
+.product-item.found { border-color: #50fa7b; }
+.product-item.failed { border-color: #ff5555; }
+textarea {
+  width: 100%; background: #0d0d0d; border: 1px solid #1f2d1f;
+  border-radius: 8px; padding: 12px; color: #f8f8f2;
+  font-size: 0.78rem; min-height: 120px; margin-top: 10px;
+  resize: vertical; font-family: monospace;
+}
+textarea:focus { outline: none; border-color: #50fa7b; }
+</style>
+</head>
+<body>
+
+<h1>💀 骨頭人 蝦皮圖片收集器</h1>
+<p class="subtitle">自動為您的 AI 玩具商城補充商品圖片，請在已登入蝦皮的瀏覽器中使用</p>
+
+<div class="warning">
+  ⚠️ 使用前請確認：您必須先在另一個分頁登入蝦皮台灣 (shopee.tw)，否則會被擋住。
+</div>
+
+<div class="step">
+  <div class="step-num">STEP 1</div>
+  <h3>確認蝦皮已登入</h3>
+  <p>請先在新分頁開啟 <a href="https://shopee.tw" target="_blank" style="color:#50fa7b">shopee.tw</a> 並登入您的帳號，然後回到這個頁面繼續。</p>
+  <button class="btn" onclick="checkShopeeLogin()">✅ 我已登入，開始收集</button>
+  <div id="loginStatus" class="status"></div>
+</div>
+
+<div class="step">
+  <div class="step-num">STEP 2</div>
+  <h3>自動收集 60 件商品圖片</h3>
+  <p>點擊下方按鈕，工具會自動逐一訪問每件商品，擷取圖片連結（約需 2-3 分鐘）。</p>
+  <button class="btn btn-orange" id="startBtn" onclick="startCollection()" disabled>🚀 開始自動收集</button>
+  <div class="progress" id="progressWrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="status" id="collectionStatus"></div>
+  <div class="product-list" id="productPreview"></div>
+</div>
+
+<div class="step">
+  <div class="step-num">STEP 3</div>
+  <h3>複製結果給骨頭人 AI</h3>
+  <p>收集完成後，複製下方的 JSON 資料，貼回給我（AI），我會立即更新商城的所有商品圖片。</p>
+  <button class="btn btn-purple" id="copyBtn" onclick="copyResult()" style="display:none">📋 複製 JSON 結果</button>
+  <div class="result-area" id="resultArea"></div>
+</div>
+
+<div class="step">
+  <div class="step-num">備用方案</div>
+  <h3>手動輸入單一商品圖片</h3>
+  <p>如果自動收集失敗，您可以在蝦皮商品頁面，對主圖按右鍵 → 複製圖片網址，然後貼在下方對應商品：</p>
+  <div id="manualList"></div>
+  <button class="btn" onclick="generateManualJSON()" style="margin-top:12px">產生 JSON</button>
+  <div class="result-area" id="manualResult"></div>
+</div>
+
+<script>
+const PRODUCTS = [
+  {id:'41380608357',shopid:'1677119390',name:'AI福娃毛絨玩具'},
+  {id:'48809964374',shopid:'1677119390',name:'AI小恐龍毛絨玩具'},
+  {id:'48809964375',shopid:'1677119390',name:'AI福娃毛絨玩具(2)'},
+  {id:'55259953197',shopid:'1677119390',name:'AI赤焰馬毛絨玩具'},
+  {id:'55759944468',shopid:'1677119390',name:'AI小汽車毛絨玩具'},
+  {id:'41380608355',shopid:'1677119390',name:'喜玩伴AI小汽車'},
+  {id:'55759944421',shopid:'1677119390',name:'AI孫悟空毛絨玩具'},
+  {id:'55759944465',shopid:'1677119390',name:'AI孫悟空毛絨玩具(2)'},
+  {id:'41280608387',shopid:'1677119390',name:'AI玩具毛絨公仔'},
+  {id:'41280608380',shopid:'1677119390',name:'講故事AI小紅馬'},
+  {id:'48809964373',shopid:'1677119390',name:'AI玩具毛絨公仔(2)'},
+  {id:'41180608382',shopid:'1677119390',name:'AI玩具毛絨公仔(3)'},
+  {id:'48809964344',shopid:'1677119390',name:'正版AI智能寵物'},
+  {id:'55759944424',shopid:'1677119390',name:'AI玩具毛絨公仔(4)'},
+  {id:'54109422837',shopid:'1684066723',name:'智能AI玩伴對話玩具'},
+  {id:'53558976462',shopid:'1798339935',name:'AI小恐龍(fu333tw)'},
+  {id:'49807294706',shopid:'1723995610',name:'AI紅焰馬'},
+  {id:'58106354408',shopid:'1723995610',name:'喜玩伴AI小恐龍'},
+  {id:'58106354412',shopid:'1723995610',name:'喜玩伴AI小汽車'},
+  {id:'56007269890',shopid:'1723995610',name:'快樂伴侶AI公仔'},
+  {id:'56957274789',shopid:'1723995610',name:'AI小恐龍(zuihuaying)'},
+  {id:'51657280183',shopid:'1723995610',name:'趣味伴侶AI小恐龍'},
+  {id:'49909276369',shopid:'1804627910',name:'圓形智能機器人桌伴'},
+  {id:'29044557824',shopid:'60072539',name:'AI智能互動機器人'},
+  {id:'57057365561',shopid:'1710359842',name:'ai毛絨玩具小恐龍'},
+  {id:'43379342023',shopid:'1710359842',name:'ai毛絨玩具孫悟空'},
+  {id:'41361575564',shopid:'43506174',name:'AI智能五子棋'},
+  {id:'55759944466',shopid:'1677119390',name:'AI貓頭鷹玩偶'},
+  {id:'41480608346',shopid:'1677119390',name:'AI人工智能毛絨公仔'},
+  {id:'41380608366',shopid:'1677119390',name:'DeepSeek豆包AI玩具'},
+  {id:'41180608381',shopid:'1677119390',name:'小智AI盒子'},
+  {id:'52909427035',shopid:'1684066723',name:'寒米Ai早教機'},
+  {id:'53009426973',shopid:'1684066723',name:'爆火AI語音機器人'},
+  {id:'50959609800',shopid:'1806692325',name:'智能Ai兒童學習機器人'},
+  {id:'49759154583',shopid:'1674011197',name:'Deepseek智能AI對話玩具'},
+  {id:'47659892489',shopid:'1806692325',name:'AI對話抱抱陪伴'},
+  {id:'49659154700',shopid:'1674011197',name:'AI福仔精靈兔子'},
+  {id:'42378512186',shopid:'34701129',name:'AI智能鬧鐘'},
+  {id:'57209621629',shopid:'1806692325',name:'智能對話語音機器人'},
+  {id:'41354148388',shopid:'1503200681',name:'多功能AI語音學說話'},
+  {id:'49160098659',shopid:'1592515454',name:'拍拍燈AI兒童玩具'},
+  {id:'55307262513',shopid:'1521455508',name:'紐曼AI智能台鐘'},
+  {id:'51259185184',shopid:'1657943889',name:'AI智能對話芙玩具'},
+  {id:'25045531159',shopid:'634977489',name:'AI智能五子棋(LKD)'},
+  {id:'41430259272',shopid:'1804627910',name:'Ai智能泰迪狗機器人'},
+  {id:'41407162155',shopid:'9776389',name:'AI智能五子棋(蓉易買)'},
+  {id:'48409281298',shopid:'1804627910',name:'AI智能對話團芙'},
+  {id:'57409265516',shopid:'1804627910',name:'智能AI機器人遙控'},
+  {id:'49909276320',shopid:'1804627910',name:'小智AI語音機器人'},
+  {id:'41380411393',shopid:'1674560949',name:'大模型AI智能機器人'},
+  {id:'26244730410',shopid:'1674013027',name:'AI福仔精靈兔子(2)'},
+  {id:'41530171900',shopid:'1658048675',name:'Ai智能早教機器人'},
+  {id:'51159065613',shopid:'1658048675',name:'智能Ai兒童學習機器人'},
+  {id:'48559076612',shopid:'1658048675',name:'豆包AI對話玩具'},
+  {id:'51159065609',shopid:'1658048675',name:'寒米Ai早教機(xunzhu)'},
+  {id:'51159065665',shopid:'1658048675',name:'寒米Ai早教機(2)'},
+  {id:'46258425580',shopid:'30796419',name:'14合一AI智能棋盤'},
+  {id:'47359149741',shopid:'807451874',name:'14合一AI棋盤(一家玩具)'},
+  {id:'45903128978',shopid:'340840204',name:'智能機器人藍牙AI語音'},
+  {id:'45808638431',shopid:'1043690',name:'口袋電子棋盤AI智能'},
+];
+
+const results = {};
+let collecting = false;
+
+function checkShopeeLogin() {
+  document.getElementById('loginStatus').textContent = '✅ 確認！正在啟用收集功能...';
+  document.getElementById('startBtn').disabled = false;
+  generateManualInputs();
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function fetchProductImage(shopid, itemid) {
+  const endpoints = [
+    `https://shopee.tw/api/v4/item/get?itemid=${itemid}&shopid=${shopid}`,
+  ];
+  for (const url of endpoints) {
+    try {
+      const resp = await fetch(url, {
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Referer': `https://shopee.tw/product/${shopid}/${itemid}`,
+          'x-shopee-language': 'zh-Hant',
+        }
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        const images = data?.data?.images || data?.item?.images || [];
+        if (images.length > 0) {
+          return `https://cf.shopee.tw/file/${images[0]}_tn`;
+        }
+      }
+    } catch(e) {}
+  }
+  return null;
+}
+
+async function startCollection() {
+  if (collecting) return;
+  collecting = true;
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('progressWrap').style.display = 'block';
+  const preview = document.getElementById('productPreview');
+  preview.innerHTML = '';
+
+  for (let i = 0; i < PRODUCTS.length; i++) {
+    const p = PRODUCTS[i];
+    const pct = Math.round((i / PRODUCTS.length) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('collectionStatus').textContent = `正在處理 ${i+1}/${PRODUCTS.length}：${p.name}`;
+
+    const imgUrl = await fetchProductImage(p.shopid, p.id);
+    results[p.id] = imgUrl || '';
+
+    // 顯示預覽卡
+    const div = document.createElement('div');
+    div.className = 'product-item ' + (imgUrl ? 'found' : 'failed');
+    if (imgUrl) {
+      div.innerHTML = `<img src="${imgUrl}" onerror="this.style.display='none'"><div>${p.name}</div>`;
+    } else {
+      div.innerHTML = `<div class="img-placeholder">❌</div><div>${p.name}</div>`;
+    }
+    preview.appendChild(div);
+
+    await sleep(300);
+  }
+
+  document.getElementById('progressBar').style.width = '100%';
+  const found = Object.values(results).filter(v => v).length;
+  document.getElementById('collectionStatus').textContent =
+    `✅ 完成！成功取得 ${found}/${PRODUCTS.length} 張圖片`;
+
+  showResult();
+}
+
+function showResult() {
+  const output = PRODUCTS.map(p => ({
+    itemid: p.id,
+    img_url: results[p.id] || ''
+  }));
+  const json = JSON.stringify(output, null, 2);
+  const area = document.getElementById('resultArea');
+  area.style.display = 'block';
+  area.textContent = json;
+  document.getElementById('copyBtn').style.display = 'inline-block';
+}
+
+function copyResult() {
+  const area = document.getElementById('resultArea');
+  navigator.clipboard.writeText(area.textContent).then(() => {
+    document.getElementById('copyBtn').textContent = '✅ 已複製！';
+    setTimeout(() => {
+      document.getElementById('copyBtn').textContent = '📋 複製 JSON 結果';
+    }, 2000);
+  });
+}
+
+function generateManualInputs() {
+  const list = document.getElementById('manualList');
+  list.innerHTML = PRODUCTS.map(p => `
+    <div style="display:flex;gap:8px;margin-bottom:6px;align-items:center">
+      <span style="color:#6272a4;font-size:.7rem;min-width:160px">${p.name}</span>
+      <input type="text" placeholder="貼上圖片 URL..."
+        id="manual_${p.id}"
+        style="flex:1;background:#161616;border:1px solid #1f2d1f;color:#f8f8f2;padding:4px 8px;border-radius:4px;font-size:.72rem;outline:none">
+    </div>
+  `).join('');
+}
+
+function generateManualJSON() {
+  const output = PRODUCTS.map(p => ({
+    itemid: p.id,
+    img_url: document.getElementById(`manual_${p.id}`)?.value?.trim() || ''
+  }));
+  const area = document.getElementById('manualResult');
+  area.style.display = 'block';
+  area.textContent = JSON.stringify(output, null, 2);
+}
+</script>
+</body>
+</html>
