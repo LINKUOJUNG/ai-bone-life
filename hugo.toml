@@ -8,15 +8,39 @@ title = 'AI 驅動的骨頭人生'
   ShowReadingTime = true
   ShowShareButtons = true
   ShowPostNavLinks = true
+  defaultTheme = "dark"
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
 
 [params.homeInfoParams]
-  Title = "歡迎來到 2026 年的韭菜收割場"
-  Content = "骨頭人阿榮的厭世哲學與 AI 生存指南。"
+  Title = "歡迎來到 2026 年的韭菜收割場 💀"
+  Content = "骨頭人阿榮的厭世哲學與 AI 生存指南。不談勵志，只談如何在這場 AI 時代，用最厭世的姿勢苟延殘喘。"
 
-[params.profileMode]
-  enabled = true
-  title = "AI 驅動的骨頭人生"
-  
-[params.themeColor]
-  darkMode = true
-  defaultTheme = "dark"
+[[params.socialIcons]]
+  name = "youtube"
+  url = "https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "標籤"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "about"
+    name = "關於我"
+    url = "/about/"
+    weight = 30
+  [[menu.main]]
+    identifier = "search"
+    name = "搜尋"
+    url = "/search/"
+    weight = 40
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
