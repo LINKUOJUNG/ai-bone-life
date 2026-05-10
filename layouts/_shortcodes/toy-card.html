@@ -1,0 +1,39 @@
+{{- /*
+  AI 玩具商品卡片 Shortcode
+  使用方式：
+  {{< toy-card 
+    title="ProsKit GE-893 AI 智能寶比機器人"
+    desc="台灣寶工出品，紅外線感測 + AI 人工智慧，親子 DIY 組裝，適合 8 歲以上"
+    price="NT$1,200"
+    original="NT$1,500"
+    stars="5"
+    badge="骨頭人推薦"
+    url="https://你的聯盟行銷連結"
+    emoji="🤖"
+  >}}
+*/ -}}
+
+<div class="ai-toy-card" style="max-width:280px;display:inline-block;vertical-align:top;margin:8px;">
+  {{ if .Get "badge" }}
+  <div class="ai-toy-card-badge">{{ .Get "badge" }}</div>
+  {{ end }}
+  <div class="ai-toy-card-img">{{ if .Get "emoji" }}{{ .Get "emoji" }}{{ else }}🤖{{ end }}</div>
+  <div class="ai-toy-card-body">
+    <div class="ai-toy-card-title">{{ .Get "title" }}</div>
+    <div class="ai-toy-card-desc">{{ .Get "desc" }}</div>
+    {{ if .Get "stars" }}
+    <div class="ai-toy-card-stars">
+      {{ range seq (int (.Get "stars")) }}⭐{{ end }}
+    </div>
+    {{ end }}
+    {{ if .Get "price" }}
+    <div class="ai-toy-card-price">
+      {{ .Get "price" }}
+      {{ if .Get "original" }}<span class="original">{{ .Get "original" }}</span>{{ end }}
+    </div>
+    {{ end }}
+    <a href="{{ .Get "url" }}" class="ai-toy-card-btn" target="_blank" rel="noopener">
+      查看商品 →
+    </a>
+  </div>
+</div>
