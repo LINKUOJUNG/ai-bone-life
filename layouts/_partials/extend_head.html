@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var text = title.textContent.trim();
   title.innerHTML = '';
   var cursor = document.createElement('span');
-  cursor.style.cssText = 'border-right:2px solid #00ffff;display:inline-block;animation:blink-cyber .7s step-end infinite;margin-left:2px';
+  cursor.style.cssText = 'border-right:2px solid #3b82f6;display:inline-block;animation:blink-bright .7s step-end infinite;margin-left:2px';
   var style = document.createElement('style');
-  style.textContent = '@keyframes blink-cyber{from,to{border-color:transparent}50%{border-color:#00ffff;box-shadow:0 0 8px rgba(0,255,255,0.8)}}';
+  style.textContent = '@keyframes blink-bright{from,to{border-color:transparent}50%{border-color:#3b82f6;box-shadow:0 0 8px rgba(59,130,246,0.6)}}';
   document.head.appendChild(style);
   var i = 0;
   var textNode = document.createTextNode('');

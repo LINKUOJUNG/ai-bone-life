@@ -1,0 +1,112 @@
+<svg viewBox="0 0 700 460" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bh-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff"/>
+      <stop offset="100%" stop-color="#e8f0fe"/>
+    </linearGradient>
+    <linearGradient id="bh-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fbff"/>
+    </linearGradient>
+    <linearGradient id="bh-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="bh-grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="bh-shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#3b82f6" flood-opacity="0.15"/>
+    </filter>
+    <filter id="bh-soft">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  <!-- 背景 -->
+  <rect width="700" height="460" fill="url(#bh-bg)"/>
+  <!-- 淡藍圓形裝飾 -->
+  <circle cx="580" cy="80" r="120" fill="#dbeafe" opacity="0.5"/>
+  <circle cx="80" cy="380" r="90" fill="#e0e7ff" opacity="0.4"/>
+  <circle cx="350" cy="400" r="60" fill="#cffafe" opacity="0.3"/>
+  <!-- 網格點陣 -->
+  <defs>
+    <pattern id="bh-dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1" fill="#93c5fd" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="700" height="460" fill="url(#bh-dots)"/>
+
+  <!-- 左側資訊卡 -->
+  <rect x="20" y="110" width="155" height="140" rx="14" fill="white" filter="url(#bh-soft)" opacity="0.95"/>
+  <rect x="30" y="120" width="60" height="4" rx="2" fill="url(#bh-grad1)"/>
+  <text x="30" y="144" fill="#1e40af" font-size="9" font-family="sans-serif" font-weight="600">SYSTEM STATUS</text>
+  <text x="30" y="162" fill="#64748b" font-size="8" font-family="sans-serif">⚡ AI Engine</text>
+  <rect x="30" y="167" width="130" height="6" rx="3" fill="#e2e8f0"/>
+  <rect x="30" y="167" width="115" height="6" rx="3" fill="url(#bh-grad1)"/>
+  <text x="30" y="192" fill="#64748b" font-size="8" font-family="sans-serif">📊 Insight Score</text>
+  <rect x="30" y="197" width="130" height="6" rx="3" fill="#e2e8f0"/>
+  <rect x="30" y="197" width="105" height="6" rx="3" fill="url(#bh-grad2)"/>
+  <text x="30" y="222" fill="#64748b" font-size="8" font-family="sans-serif">🎯 BS Detector</text>
+  <rect x="30" y="227" width="130" height="6" rx="3" fill="#e2e8f0"/>
+  <rect x="30" y="227" width="128" height="6" rx="3" fill="#10b981"/>
+  <text x="30" y="242" fill="#10b981" font-size="7" font-family="sans-serif">● ONLINE</text>
+
+  <!-- 主角骨頭人卡片 -->
+  <rect x="215" y="60" width="260" height="300" rx="20" fill="white" filter="url(#bh-shadow)"/>
+  <!-- 頂部彩色條 -->
+  <rect x="215" y="60" width="260" height="5" rx="20" fill="url(#bh-grad1)"/>
+  <!-- 骨頭人頭部 -->
+  <circle cx="345" cy="155" r="52" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+  <circle cx="345" cy="155" r="38" fill="white" stroke="#dbeafe" stroke-width="1.5"/>
+  <!-- 眼睛 -->
+  <ellipse cx="333" cy="149" rx="7" ry="8" fill="#3b82f6"/>
+  <ellipse cx="357" cy="149" rx="7" ry="8" fill="#3b82f6"/>
+  <ellipse cx="333" cy="149" rx="3" ry="4" fill="white"/>
+  <ellipse cx="357" cy="149" rx="3" ry="4" fill="white"/>
+  <ellipse cx="332" cy="148" rx="1.5" ry="2" fill="#1d4ed8"/>
+  <ellipse cx="356" cy="148" rx="1.5" ry="2" fill="#1d4ed8"/>
+  <!-- 鼻 -->
+  <ellipse cx="345" cy="159" rx="4" ry="3" fill="#93c5fd" opacity="0.7"/>
+  <!-- 笑容 -->
+  <path d="M 332 170 Q 345 180 358 170" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 身體 -->
+  <rect x="320" y="210" width="50" height="65" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <!-- 領帶 -->
+  <path d="M 338 212 L 345 228 L 352 212 Z" fill="url(#bh-grad1)" opacity="0.8"/>
+  <rect x="343" y="226" width="4" height="30" rx="2" fill="url(#bh-grad1)" opacity="0.7"/>
+  <!-- 手臂 -->
+  <line x1="320" y1="225" x2="280" y2="252" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+  <line x1="370" y1="225" x2="410" y2="252" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+  <!-- 腿 -->
+  <line x1="332" y1="275" x2="316" y2="335" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+  <line x1="358" y1="275" x2="374" y2="335" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+  <!-- 標題 -->
+  <text x="345" y="98" text-anchor="middle" fill="#1e40af" font-size="11" font-family="sans-serif" font-weight="700">骨頭人阿榮</text>
+  <text x="345" y="113" text-anchor="middle" fill="#64748b" font-size="8" font-family="sans-serif">AI 時代生存指南</text>
+
+  <!-- 右側資訊卡 -->
+  <rect x="523" y="100" width="155" height="130" rx="14" fill="white" filter="url(#bh-soft)" opacity="0.95"/>
+  <rect x="533" y="110" width="70" height="4" rx="2" fill="url(#bh-grad2)"/>
+  <text x="533" y="132" fill="#0891b2" font-size="9" font-family="sans-serif" font-weight="600">AI ANALYSIS</text>
+  <text x="533" y="152" fill="#64748b" font-size="8" font-family="sans-serif">職場套路識別率</text>
+  <text x="660" y="152" text-anchor="end" fill="#3b82f6" font-size="9" font-weight="700" font-family="sans-serif">98%</text>
+  <text x="533" y="172" fill="#64748b" font-size="8" font-family="sans-serif">大餅識破速度</text>
+  <text x="660" y="172" text-anchor="end" fill="#8b5cf6" font-size="9" font-weight="700" font-family="sans-serif">0.3s</text>
+  <text x="533" y="192" fill="#64748b" font-size="8" font-family="sans-serif">AI 謊言過濾</text>
+  <text x="660" y="192" text-anchor="end" fill="#10b981" font-size="9" font-weight="700" font-family="sans-serif">99%</text>
+  <text x="533" y="212" fill="#64748b" font-size="8" font-family="sans-serif">厭世指數</text>
+  <text x="660" y="212" text-anchor="end" fill="#f59e0b" font-size="9" font-weight="700" font-family="sans-serif">MAX</text>
+
+  <!-- 對話框 -->
+  <rect x="230" y="355" width="240" height="50" rx="12" fill="url(#bh-grad1)" opacity="0.95"/>
+  <polygon points="285,355 305,355 295,342" fill="url(#bh-grad1)" opacity="0.95"/>
+  <text x="350" y="376" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="600">「清醒，才是最貴的能力。」</text>
+  <text x="350" y="393" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="8" font-family="sans-serif">— 骨頭人阿榮</text>
+
+  <!-- 浮動標籤 -->
+  <rect x="80" y="300" width="90" height="28" rx="14" fill="white" filter="url(#bh-soft)"/>
+  <text x="125" y="319" text-anchor="middle" fill="#3b82f6" font-size="9" font-family="sans-serif" font-weight="600">✓ 41+ 文章</text>
+  <rect x="520" y="280" width="90" height="28" rx="14" fill="white" filter="url(#bh-soft)"/>
+  <text x="565" y="299" text-anchor="middle" fill="#8b5cf6" font-size="9" font-family="sans-serif" font-weight="600">✓ 60 商品</text>
+</svg>

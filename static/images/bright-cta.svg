@@ -1,0 +1,43 @@
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bct-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#f5f3ff"/>
+    </linearGradient>
+    <linearGradient id="bct-g" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="bct-s"><feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#3b82f6" flood-opacity="0.1"/></filter>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bct-bg)"/>
+  <!-- 裝飾圓 -->
+  <circle cx="150" cy="200" r="200" fill="#dbeafe" opacity="0.25"/>
+  <circle cx="1050" cy="200" r="180" fill="#e0e7ff" opacity="0.25"/>
+  <circle cx="600" cy="380" r="150" fill="#cffafe" opacity="0.2"/>
+  <!-- 點陣 -->
+  <defs><pattern id="bct-d" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1" fill="#93c5fd" opacity="0.25"/></pattern></defs>
+  <rect width="1200" height="400" fill="url(#bct-d)"/>
+  <!-- 頂部彩色條 -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#bct-g)"/>
+  <rect x="0" y="396" width="1200" height="4" fill="url(#bct-g)"/>
+  <!-- 中央裝飾卡 -->
+  <rect x="400" y="130" width="400" height="140" rx="16" fill="white" filter="url(#bct-s)" opacity="0.8"/>
+  <text x="600" y="185" text-anchor="middle" fill="#1e40af" font-size="18" font-family="sans-serif" font-weight="900">AI 驅動的骨頭人生</text>
+  <text x="600" y="210" text-anchor="middle" fill="#64748b" font-size="11" font-family="sans-serif">AI 時代生存指南 · 職場觀點 · 聯盟商城</text>
+  <rect x="490" y="228" width="220" height="3" rx="2" fill="url(#bct-g)" opacity="0.6"/>
+  <text x="600" y="257" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="sans-serif">VERSION 5.0 · BRIGHT TECH EDITION</text>
+  <!-- 浮動卡片 -->
+  <rect x="80" y="150" width="130" height="70" rx="12" fill="white" filter="url(#bct-s)"/>
+  <text x="145" y="178" text-anchor="middle" font-size="20">📝</text>
+  <text x="145" y="198" text-anchor="middle" fill="#3b82f6" font-size="9" font-family="sans-serif" font-weight="600">41+ 篇文章</text>
+  <text x="145" y="212" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="sans-serif">深度觀點</text>
+  <rect x="990" y="150" width="130" height="70" rx="12" fill="white" filter="url(#bct-s)"/>
+  <text x="1055" y="178" text-anchor="middle" font-size="20">🛒</text>
+  <text x="1055" y="198" text-anchor="middle" fill="#8b5cf6" font-size="9" font-family="sans-serif" font-weight="600">60 件商品</text>
+  <text x="1055" y="212" text-anchor="middle" fill="#94a3b8" font-size="8" font-family="sans-serif">蝦皮聯盟</text>
+  <!-- 連接線 -->
+  <line x1="210" y1="185" x2="400" y2="185" stroke="#bfdbfe" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <line x1="800" y1="185" x2="990" y2="185" stroke="#ddd6fe" stroke-width="1.5" stroke-dasharray="6 3"/>
+</svg>

@@ -1,0 +1,46 @@
+<svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bt-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#f5f3ff"/>
+    </linearGradient>
+    <linearGradient id="bt-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="bt-g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="bt-s"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#3b82f6" flood-opacity="0.12"/></filter>
+  </defs>
+  <rect width="500" height="340" fill="url(#bt-bg)"/>
+  <circle cx="250" cy="170" r="130" fill="white" opacity="0.6"/>
+  <circle cx="100" cy="60" r="60" fill="#dbeafe" opacity="0.4"/>
+  <circle cx="400" cy="280" r="50" fill="#e0e7ff" opacity="0.3"/>
+  <!-- 中央六邊形 -->
+  <polygon points="250,70 310,105 310,175 250,210 190,175 190,105" fill="url(#bt-g1)" opacity="0.08" stroke="url(#bt-g1)" stroke-width="2"/>
+  <polygon points="250,90 295,115 295,165 250,190 205,165 205,115" fill="white" filter="url(#bt-s)"/>
+  <text x="250" y="148" text-anchor="middle" font-size="30">🤖</text>
+  <text x="250" y="168" text-anchor="middle" fill="#3b82f6" font-size="8" font-family="sans-serif" font-weight="700">AI 核心</text>
+  <!-- 軌道 -->
+  <ellipse cx="250" cy="140" rx="110" ry="110" fill="none" stroke="#bfdbfe" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- 節點 -->
+  <circle cx="360" cy="140" r="30" fill="white" filter="url(#bt-s)"/>
+  <text x="360" y="136" text-anchor="middle" font-size="16">📊</text>
+  <text x="360" y="154" text-anchor="middle" fill="#3b82f6" font-size="7" font-family="sans-serif">分析</text>
+  <circle cx="140" cy="140" r="30" fill="white" filter="url(#bt-s)"/>
+  <text x="140" y="136" text-anchor="middle" font-size="16">🔍</text>
+  <text x="140" y="154" text-anchor="middle" fill="#8b5cf6" font-size="7" font-family="sans-serif">識破</text>
+  <circle cx="250" cy="30" r="30" fill="white" filter="url(#bt-s)"/>
+  <text x="250" y="26" text-anchor="middle" font-size="16">💡</text>
+  <text x="250" y="44" text-anchor="middle" fill="#06b6d4" font-size="7" font-family="sans-serif">洞察</text>
+  <circle cx="250" cy="250" r="30" fill="white" filter="url(#bt-s)"/>
+  <text x="250" y="246" text-anchor="middle" font-size="16">💰</text>
+  <text x="250" y="264" text-anchor="middle" fill="#10b981" font-size="7" font-family="sans-serif">變現</text>
+  <!-- 連接線 -->
+  <line x1="280" y1="140" x2="330" y2="140" stroke="#bfdbfe" stroke-width="1.5"/>
+  <line x1="220" y1="140" x2="170" y2="140" stroke="#ddd6fe" stroke-width="1.5"/>
+  <line x1="250" y1="110" x2="250" y2="60" stroke="#a5f3fc" stroke-width="1.5"/>
+  <line x1="250" y1="170" x2="250" y2="220" stroke="#a7f3d0" stroke-width="1.5"/>
+</svg>
