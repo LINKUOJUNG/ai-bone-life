@@ -1,0 +1,39 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#0a0a0a"/>
+  <!-- 辦公室背景 -->
+  <rect x="0" y="180" width="400" height="120" fill="#111"/>
+  <!-- 會議桌 -->
+  <ellipse cx="200" cy="230" rx="150" ry="30" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <!-- 陰影人物 -->
+  <ellipse cx="100" cy="190" rx="18" ry="18" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <rect x="85" y="208" width="30" height="50" rx="5" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <ellipse cx="300" cy="190" rx="18" ry="18" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <rect x="285" y="208" width="30" height="50" rx="5" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <ellipse cx="360" cy="185" rx="15" ry="15" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <rect x="347" y="200" width="26" height="45" rx="5" fill="#1a1a1a" stroke="#242424" stroke-width="1"/>
+  <!-- 骨頭人（中央，橘色聚光燈） -->
+  <ellipse cx="200" cy="160" rx="80" ry="100" fill="#ff6b35" fill-opacity="0.08"/>
+  <circle cx="200" cy="155" r="28" fill="#141414" stroke="#ff6b35" stroke-width="2"/>
+  <!-- 骨頭人頭骨眼睛 -->
+  <ellipse cx="191" cy="150" rx="6" ry="7" fill="#ff6b35" opacity="0.9"/>
+  <ellipse cx="209" cy="150" rx="6" ry="7" fill="#ff6b35" opacity="0.9"/>
+  <ellipse cx="191" cy="150" rx="2.5" ry="3" fill="#0a0a0a"/>
+  <ellipse cx="209" cy="150" rx="2.5" ry="3" fill="#0a0a0a"/>
+  <ellipse cx="200" cy="158" rx="3" ry="2" fill="#ff6b35" opacity="0.6"/>
+  <path d="M 191 168 Q 200 174 209 168" fill="none" stroke="#ff6b35" stroke-width="1.5"/>
+  <!-- 骨頭人身體 -->
+  <rect x="183" y="185" width="34" height="55" rx="5" fill="none" stroke="#ff6b35" stroke-width="1.5" opacity="0.8"/>
+  <line x1="200" y1="185" x2="200" y2="240" stroke="#ff6b35" stroke-width="1" opacity="0.4"/>
+  <!-- 手臂 -->
+  <line x1="183" y1="200" x2="155" y2="225" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>
+  <line x1="217" y1="200" x2="245" y2="225" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>
+  <!-- 說話泡泡 -->
+  <rect x="215" y="120" width="140" height="60" rx="10" fill="#141414" stroke="#ff6b35" stroke-width="1.5"/>
+  <polygon points="220,180 232,180 226,192" fill="#141414" stroke="#ff6b35" stroke-width="1"/>
+  <text x="285" y="144" text-anchor="middle" fill="#ff6b35" font-size="9" font-family="sans-serif">老闆的大餅</text>
+  <text x="285" y="158" text-anchor="middle" fill="#ff6b35" font-size="9" font-family="sans-serif">什麼時候能烤熟？</text>
+  <text x="285" y="172" text-anchor="middle" fill="#6272a4" font-size="8" font-family="sans-serif">— 骨頭人內心</text>
+  <!-- 頂部裝飾 -->
+  <text x="200" y="40" text-anchor="middle" fill="#ff6b35" font-size="11" font-family="sans-serif" opacity="0.7">職場生存觀察中...</text>
+  <line x1="80" y1="50" x2="320" y2="50" stroke="#ff6b35" stroke-width="0.5" opacity="0.3"/>
+</svg>

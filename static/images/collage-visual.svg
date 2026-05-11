@@ -1,0 +1,70 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" fill="#080808"/>
+  <!-- 左格：職場 -->
+  <rect x="10" y="10" width="250" height="380" rx="12" fill="#141414" stroke="#242424" stroke-width="1"/>
+  <text x="135" y="50" text-anchor="middle" fill="#ff6b35" font-size="11" font-family="sans-serif" letter-spacing="2">職場煉獄</text>
+  <!-- 辦公室場景 -->
+  <rect x="30" y="70" width="210" height="140" rx="8" fill="#0f0f0f"/>
+  <rect x="50" y="100" width="170" height="90" rx="4" fill="#1a1a1a"/>
+  <!-- 電腦螢幕 -->
+  <rect x="80" y="85" width="100" height="70" rx="4" fill="#1a1a1a" stroke="#242424"/>
+  <rect x="83" y="88" width="94" height="62" rx="2" fill="#0a0a0a"/>
+  <text x="130" y="122" text-anchor="middle" fill="#ff6b35" font-size="8" font-family="monospace">OVERTIME: ON</text>
+  <!-- 骨頭人坐著 -->
+  <circle cx="135" cy="180" r="12" fill="#141414" stroke="#ff6b35" stroke-width="1.5"/>
+  <ellipse cx="130" cy="177" rx="4" ry="5" fill="#ff6b35" opacity="0.8"/>
+  <ellipse cx="140" cy="177" rx="4" ry="5" fill="#ff6b35" opacity="0.8"/>
+  <rect x="125" y="192" width="20" height="28" rx="4" fill="#141414" stroke="#ff6b35" stroke-width="1"/>
+  <!-- 統計 -->
+  <text x="135" y="250" text-anchor="middle" fill="#6272a4" font-size="9" font-family="sans-serif">22 篇職場觀點</text>
+  <text x="135" y="268" text-anchor="middle" fill="#ff6b35" font-size="20">😤</text>
+  <text x="135" y="300" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">老闆的大餅 · 離職 · 加班</text>
+  <text x="135" y="315" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">考績 · 薪水 · 職場鬼故事</text>
+  <rect x="60" y="340" width="150" height="30" rx="8" fill="#ff6b35"/>
+  <text x="135" y="360" text-anchor="middle" fill="#080808" font-size="10" font-weight="bold" font-family="sans-serif">進入職場區 →</text>
+
+  <!-- 中格：AI -->
+  <rect x="275" y="10" width="250" height="380" rx="12" fill="#141414" stroke="#00d4ff" stroke-width="1" opacity="0.6"/>
+  <text x="400" y="50" text-anchor="middle" fill="#00d4ff" font-size="11" font-family="sans-serif" letter-spacing="2">AI 照妖鏡</text>
+  <!-- AI 視覺 -->
+  <circle cx="400" cy="160" r="70" fill="none" stroke="#00d4ff" stroke-width="1" stroke-dasharray="5 3" opacity="0.4"/>
+  <circle cx="400" cy="160" r="50" fill="#0f0f0f" stroke="#00d4ff" stroke-width="1.5"/>
+  <text x="400" y="145" text-anchor="middle" fill="#00d4ff" font-size="28">🤖</text>
+  <text x="400" y="170" text-anchor="middle" fill="#00d4ff" font-size="9" font-family="monospace">PROCESSING...</text>
+  <text x="400" y="185" text-anchor="middle" fill="#ff6b35" font-size="8" font-family="monospace">TRUTH: 99%</text>
+  <!-- 軌道點 -->
+  <circle cx="470" cy="160" r="5" fill="#ff6b35" opacity="0.8"/>
+  <circle cx="330" cy="160" r="5" fill="#50fa7b" opacity="0.8"/>
+  <circle cx="400" cy="90" r="5" fill="#00d4ff" opacity="0.8"/>
+  <circle cx="400" cy="230" r="5" fill="#ff6b35" opacity="0.6"/>
+  <!-- 統計 -->
+  <text x="400" y="270" text-anchor="middle" fill="#6272a4" font-size="9" font-family="sans-serif">19 篇 AI 觀點</text>
+  <text x="400" y="288" text-anchor="middle" fill="#00d4ff" font-size="20">🔍</text>
+  <text x="400" y="315" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">AI 裁員 · 割韭菜 · 打字機</text>
+  <text x="400" y="330" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">Manus AI · 職業證照 · 伴侶</text>
+  <rect x="325" y="340" width="150" height="30" rx="8" fill="#00d4ff"/>
+  <text x="400" y="360" text-anchor="middle" fill="#080808" font-size="10" font-weight="bold" font-family="sans-serif">進入 AI 區 →</text>
+
+  <!-- 右格：商城 -->
+  <rect x="540" y="10" width="250" height="380" rx="12" fill="#141414" stroke="#ee4d2d" stroke-width="1" opacity="0.6"/>
+  <text x="665" y="50" text-anchor="middle" fill="#ee4d2d" font-size="11" font-family="sans-serif" letter-spacing="2">AI 玩具商城</text>
+  <!-- 商品展示 -->
+  <rect x="560" y="65" width="210" height="190" rx="8" fill="#0f0f0f"/>
+  <text x="665" y="100" text-anchor="middle" fill="#ee4d2d" font-size="30">🤖</text>
+  <text x="665" y="130" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">AI 智能玩具</text>
+  <!-- 小商品圖標 -->
+  <text x="590" y="170" text-anchor="middle" fill="#e0e0e0" font-size="22">🧸</text>
+  <text x="635" y="170" text-anchor="middle" fill="#e0e0e0" font-size="22">♟️</text>
+  <text x="680" y="170" text-anchor="middle" fill="#e0e0e0" font-size="22">📚</text>
+  <text x="725" y="170" text-anchor="middle" fill="#e0e0e0" font-size="22">🐕</text>
+  <!-- 價格 -->
+  <text x="665" y="210" text-anchor="middle" fill="#50fa7b" font-size="11" font-family="monospace">NT$ 153 ~ 3,499</text>
+  <text x="665" y="228" text-anchor="middle" fill="#6272a4" font-size="8" font-family="sans-serif">最高分潤 19%</text>
+  <!-- 統計 -->
+  <text x="665" y="280" text-anchor="middle" fill="#6272a4" font-size="9" font-family="sans-serif">60 件精選商品</text>
+  <text x="665" y="298" text-anchor="middle" fill="#ee4d2d" font-size="20">🛒</text>
+  <text x="665" y="320" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">毛絨陪伴 · AI機器人</text>
+  <text x="665" y="335" text-anchor="middle" fill="#e0e0e0" font-size="9" font-family="sans-serif">早教學習 · 棋盤桌遊</text>
+  <rect x="590" y="345" width="150" height="30" rx="8" fill="#ee4d2d"/>
+  <text x="665" y="365" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">進入商城 →</text>
+</svg>
