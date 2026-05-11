@@ -1,15 +1,9 @@
-{{- /* 頁面載入進度條 + 文章閱讀進度條 + 打字機效果 */ -}}
-
-<!-- 頁面載入進度條 -->
+{{- /* 進度條 + 打字機效果（賽博科技版）*/ -}}
 <div id="page-load-bar"></div>
-
-<!-- 文章閱讀進度條 -->
-{{ if .IsPage }}
-<div id="reading-progress-bar"></div>
-{{ end }}
+{{ if .IsPage }}<div id="reading-progress-bar"></div>{{ end }}
 
 <script>
-// ── 文章閱讀進度條 ──
+// 文章閱讀進度條
 document.addEventListener('DOMContentLoaded', function () {
   var bar = document.getElementById('reading-progress-bar');
   if (!bar) return;
@@ -20,23 +14,28 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// ── 打字機效果（首頁英雄標語）──
+// 打字機效果（賽博科技游標 — 霓虹青色）
 document.addEventListener('DOMContentLoaded', function () {
-  var title = document.querySelector('.home-info h1, #home-info h1');
+  var title = document.querySelector('.az-hero-title, .home-info h1');
   if (!title) return;
-  var text = title.textContent;
-  title.textContent = '';
-  title.style.borderRight = '3px solid #ff6b35';
-  title.style.display = 'inline-block';
+  var lines = title.querySelectorAll('span, br');
+  var text = title.textContent.trim();
+  title.innerHTML = '';
+  var cursor = document.createElement('span');
+  cursor.style.cssText = 'border-right:2px solid #00ffff;display:inline-block;animation:blink-cyber .7s step-end infinite;margin-left:2px';
+  var style = document.createElement('style');
+  style.textContent = '@keyframes blink-cyber{from,to{border-color:transparent}50%{border-color:#00ffff;box-shadow:0 0 8px rgba(0,255,255,0.8)}}';
+  document.head.appendChild(style);
   var i = 0;
+  var textNode = document.createTextNode('');
+  title.appendChild(textNode);
+  title.appendChild(cursor);
   function type() {
     if (i < text.length) {
-      title.textContent += text.charAt(i++);
-      setTimeout(type, 70);
-    } else {
-      title.style.animation = 'blink-caret 0.8s step-end infinite';
+      textNode.nodeValue += text.charAt(i++);
+      setTimeout(type, 60);
     }
   }
-  setTimeout(type, 300);
+  setTimeout(type, 500);
 });
 </script>

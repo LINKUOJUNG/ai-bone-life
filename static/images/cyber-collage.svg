@@ -1,0 +1,66 @@
+<svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cc-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#050510"/><stop offset="100%" stop-color="#080520"/></linearGradient>
+    <linearGradient id="cc-n1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ffff"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient>
+    <linearGradient id="cc-n2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff00aa"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient>
+    <filter id="cc-glow"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="cc-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#00ffff" stroke-width="0.2" opacity="0.1"/></pattern>
+  </defs>
+  <rect width="900" height="360" fill="url(#cc-bg)"/>
+  <rect width="900" height="360" fill="url(#cc-grid)"/>
+  <!-- 三欄 -->
+  <!-- 左欄：職場 -->
+  <rect x="15" y="15" width="270" height="330" rx="10" fill="rgba(0,255,255,0.03)" stroke="#00ffff" stroke-width="1" opacity="0.7"/>
+  <line x1="15" y1="55" x2="285" y2="55" stroke="url(#cc-n1)" stroke-width="1.5"/>
+  <text x="150" y="40" text-anchor="middle" fill="#00ffff" font-size="11" font-family="monospace" letter-spacing="3">WORKPLACE</text>
+  <!-- 辦公室賽博場景 -->
+  <rect x="35" y="70" width="230" height="120" rx="6" fill="rgba(0,0,0,0.3)" stroke="#1a1a3a" stroke-width="1"/>
+  <rect x="75" y="80" width="150" height="90" rx="4" fill="rgba(0,255,255,0.03)" stroke="#00ffff" stroke-width="0.5" opacity="0.5"/>
+  <text x="150" y="110" text-anchor="middle" fill="#00ffff" font-size="8" font-family="monospace">BOSS DETECTED</text>
+  <text x="150" y="127" text-anchor="middle" fill="#7b2fff" font-size="8" font-family="monospace">THREAT.LVL: HIGH</text>
+  <text x="150" y="143" text-anchor="middle" fill="#ff00aa" font-size="8" font-family="monospace">ESCAPE.PLAN: ON</text>
+  <text x="150" y="165" text-anchor="middle" fill="#00ffff" font-size="24">😤</text>
+  <!-- 統計 -->
+  <text x="150" y="215" text-anchor="middle" fill="#00ffff" font-size="9" font-family="monospace">22 篇職場觀點</text>
+  <text x="150" y="240" text-anchor="middle" fill="#7b2fff" font-size="8" font-family="sans-serif">老闆大餅 · 加班 · 考績</text>
+  <text x="150" y="258" text-anchor="middle" fill="#7b2fff" font-size="8" font-family="sans-serif">離職 · 職場鬼故事</text>
+  <rect x="50" y="285" width="200" height="32" rx="6" fill="rgba(0,255,255,0.08)" stroke="url(#cc-n1)" stroke-width="1"/>
+  <text x="150" y="306" text-anchor="middle" fill="#00ffff" font-size="10" font-family="monospace">進入職場區 &gt;</text>
+  <!-- 中欄：AI -->
+  <rect x="315" y="15" width="270" height="330" rx="10" fill="rgba(123,47,255,0.03)" stroke="#7b2fff" stroke-width="1" opacity="0.8"/>
+  <line x1="315" y1="55" x2="585" y2="55" stroke="url(#cc-n2)" stroke-width="1.5"/>
+  <text x="450" y="40" text-anchor="middle" fill="#7b2fff" font-size="11" font-family="monospace" letter-spacing="3">AI SCANNER</text>
+  <!-- AI 視覺 -->
+  <circle cx="450" cy="135" r="55" fill="rgba(0,0,0,0.3)" stroke="#7b2fff" stroke-width="1" opacity="0.6"/>
+  <circle cx="450" cy="135" r="40" fill="rgba(123,47,255,0.08)" stroke="#7b2fff" stroke-width="1.5" filter="url(#cc-glow)"/>
+  <circle cx="450" cy="135" r="25" fill="rgba(0,255,255,0.05)" stroke="#00ffff" stroke-width="1"/>
+  <text x="450" y="120" text-anchor="middle" fill="#7b2fff" font-size="20" filter="url(#cc-glow)">🤖</text>
+  <text x="450" y="143" text-anchor="middle" fill="#00ffff" font-size="7" font-family="monospace">SCANNING...</text>
+  <!-- 掃描線動感 -->
+  <line x1="380" y1="115" x2="520" y2="115" stroke="#7b2fff" stroke-width="0.8" opacity="0.5"/>
+  <line x1="390" y1="135" x2="510" y2="135" stroke="#00ffff" stroke-width="0.8" opacity="0.5"/>
+  <line x1="380" y1="155" x2="520" y2="155" stroke="#7b2fff" stroke-width="0.8" opacity="0.5"/>
+  <text x="450" y="215" text-anchor="middle" fill="#7b2fff" font-size="9" font-family="monospace">19 篇 AI 觀點</text>
+  <text x="450" y="240" text-anchor="middle" fill="#00ffff" font-size="8" font-family="sans-serif">AI裁員 · 割韭菜 · 真相</text>
+  <text x="450" y="258" text-anchor="middle" fill="#00ffff" font-size="8" font-family="sans-serif">打字機 · Manus · 證照</text>
+  <rect x="350" y="285" width="200" height="32" rx="6" fill="rgba(123,47,255,0.08)" stroke="url(#cc-n2)" stroke-width="1"/>
+  <text x="450" y="306" text-anchor="middle" fill="#7b2fff" font-size="10" font-family="monospace">進入AI區 &gt;</text>
+  <!-- 右欄：商城 -->
+  <rect x="615" y="15" width="270" height="330" rx="10" fill="rgba(255,0,170,0.03)" stroke="#ff00aa" stroke-width="1" opacity="0.7"/>
+  <line x1="615" y1="55" x2="885" y2="55" stroke="#ff00aa" stroke-width="1.5" filter="url(#cc-glow)"/>
+  <text x="750" y="40" text-anchor="middle" fill="#ff00aa" font-size="11" font-family="monospace" letter-spacing="3">SHOP.ONLINE</text>
+  <text x="750" y="100" text-anchor="middle" fill="#ff00aa" font-size="28">🛒</text>
+  <!-- 商品格 -->
+  <rect x="635" y="115" width="230" height="80" rx="6" fill="rgba(0,0,0,0.3)" stroke="#333" stroke-width="0.5"/>
+  <text x="665" y="145" fill="#00ffff" font-size="20">🤖</text>
+  <text x="700" y="145" fill="#00ffff" font-size="20">🧸</text>
+  <text x="735" y="145" fill="#00ffff" font-size="20">♟️</text>
+  <text x="770" y="145" fill="#00ffff" font-size="20">📚</text>
+  <text x="750" y="178" text-anchor="middle" fill="#00ffff" font-size="8" font-family="monospace">NT$ 153 ~ 3,499</text>
+  <text x="750" y="215" text-anchor="middle" fill="#ff00aa" font-size="9" font-family="monospace">60 件精選商品</text>
+  <text x="750" y="240" text-anchor="middle" fill="#7b2fff" font-size="8" font-family="sans-serif">毛絨陪伴 · AI機器人</text>
+  <text x="750" y="258" text-anchor="middle" fill="#7b2fff" font-size="8" font-family="sans-serif">早教學習 · 棋盤桌遊</text>
+  <text x="750" y="275" text-anchor="middle" fill="#00ffff" font-size="8" font-family="monospace">最高分潤 19%</text>
+  <rect x="650" y="285" width="200" height="32" rx="6" fill="rgba(255,0,170,0.08)" stroke="#ff00aa" stroke-width="1" filter="url(cc-glow)"/>
+  <text x="750" y="306" text-anchor="middle" fill="#ff00aa" font-size="10" font-family="monospace">進入商城 &gt;</text>
+</svg>

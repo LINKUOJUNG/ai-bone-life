@@ -1,0 +1,87 @@
+<svg viewBox="0 0 700 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ch-bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#050510"/><stop offset="100%" stop-color="#0a0520"/></linearGradient>
+    <linearGradient id="ch-neon1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ffff"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient>
+    <linearGradient id="ch-neon2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ff00aa"/><stop offset="100%" stop-color="#00ffff"/></linearGradient>
+    <filter id="ch-glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="ch-glow2"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="ch-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#00ffff" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="700" height="450" fill="url(#ch-bg)"/>
+  <rect width="700" height="450" fill="url(#ch-grid)"/>
+  <!-- 掃描線 -->
+  <rect width="700" height="1" y="80" fill="#00ffff" opacity="0.04"/>
+  <rect width="700" height="1" y="160" fill="#00ffff" opacity="0.04"/>
+  <rect width="700" height="1" y="240" fill="#00ffff" opacity="0.04"/>
+  <rect width="700" height="1" y="320" fill="#00ffff" opacity="0.04"/>
+  <rect width="700" height="1" y="400" fill="#00ffff" opacity="0.04"/>
+  <!-- 電路板線條 -->
+  <line x1="0" y1="225" x2="150" y2="225" stroke="#00ffff" stroke-width="1" opacity="0.3"/>
+  <line x1="150" y1="225" x2="150" y2="180" stroke="#00ffff" stroke-width="1" opacity="0.3"/>
+  <line x1="150" y1="180" x2="220" y2="180" stroke="#00ffff" stroke-width="1" opacity="0.3"/>
+  <circle cx="150" cy="225" r="3" fill="#00ffff" opacity="0.6"/>
+  <circle cx="150" cy="180" r="3" fill="#00ffff" opacity="0.6"/>
+  <line x1="700" y1="225" x2="550" y2="225" stroke="#7b2fff" stroke-width="1" opacity="0.3"/>
+  <line x1="550" y1="225" x2="550" y2="270" stroke="#7b2fff" stroke-width="1" opacity="0.3"/>
+  <line x1="550" y1="270" x2="480" y2="270" stroke="#7b2fff" stroke-width="1" opacity="0.3"/>
+  <circle cx="550" cy="225" r="3" fill="#7b2fff" opacity="0.6"/>
+  <!-- 骨頭人輪廓（賽博版）-->
+  <circle cx="350" cy="100" r="50" fill="none" stroke="url(#ch-neon1)" stroke-width="2" filter="url(#ch-glow)"/>
+  <circle cx="350" cy="100" r="35" fill="#050510" stroke="#00ffff" stroke-width="1" opacity="0.5"/>
+  <!-- 眼睛 -->
+  <ellipse cx="336" cy="95" rx="8" ry="9" fill="#00ffff" opacity="0.9" filter="url(#ch-glow)"/>
+  <ellipse cx="364" cy="95" rx="8" ry="9" fill="#00ffff" opacity="0.9" filter="url(#ch-glow)"/>
+  <ellipse cx="336" cy="95" rx="3" ry="4" fill="#050510"/>
+  <ellipse cx="364" cy="95" rx="3" ry="4" fill="#050510"/>
+  <!-- 掃描線穿越眼睛 -->
+  <line x1="325" y1="95" x2="348" y2="95" stroke="#00ffff" stroke-width="0.5" opacity="0.8"/>
+  <line x1="353" y1="95" x2="375" y2="95" stroke="#00ffff" stroke-width="0.5" opacity="0.8"/>
+  <ellipse cx="350" cy="106" rx="5" ry="3" fill="#7b2fff" opacity="0.7"/>
+  <path d="M 335 118 Q 350 126 365 118" fill="none" stroke="url(#ch-neon1)" stroke-width="2"/>
+  <!-- 身體 -->
+  <rect x="322" y="153" width="56" height="80" rx="6" fill="none" stroke="url(#ch-neon1)" stroke-width="1.5" filter="url(#ch-glow)"/>
+  <line x1="350" y1="153" x2="350" y2="233" stroke="#00ffff" stroke-width="0.8" opacity="0.4" stroke-dasharray="4 3"/>
+  <!-- 手臂 -->
+  <line x1="322" y1="168" x2="270" y2="200" stroke="url(#ch-neon2)" stroke-width="2" filter="url(#ch-glow)"/>
+  <line x1="378" y1="168" x2="430" y2="200" stroke="url(#ch-neon2)" stroke-width="2" filter="url(#ch-glow)"/>
+  <!-- 腿 -->
+  <line x1="336" y1="233" x2="318" y2="310" stroke="url(#ch-neon1)" stroke-width="2" filter="url(#ch-glow)"/>
+  <line x1="364" y1="233" x2="382" y2="310" stroke="url(#ch-neon1)" stroke-width="2" filter="url(#ch-glow)"/>
+  <!-- 左側資訊板 -->
+  <rect x="40" y="130" width="160" height="130" rx="8" fill="rgba(0,255,255,0.04)" stroke="#00ffff" stroke-width="1" opacity="0.8"/>
+  <text x="120" y="155" text-anchor="middle" fill="#00ffff" font-size="9" font-family="monospace" letter-spacing="1">SYS.ANALYSIS</text>
+  <line x1="50" y1="162" x2="190" y2="162" stroke="#00ffff" stroke-width="0.5" opacity="0.4"/>
+  <text x="55" y="178" fill="#7b2fff" font-size="7" font-family="monospace">CPU.CYNICISM</text>
+  <rect x="55" y="182" width="135" height="6" rx="2" fill="rgba(0,0,0,0.3)" stroke="#333" stroke-width="0.5"/>
+  <rect x="55" y="182" width="120" height="6" rx="2" fill="url(#ch-neon1)" opacity="0.8"/>
+  <text x="55" y="200" fill="#7b2fff" font-size="7" font-family="monospace">RAM.INSIGHT</text>
+  <rect x="55" y="204" width="135" height="6" rx="2" fill="rgba(0,0,0,0.3)" stroke="#333" stroke-width="0.5"/>
+  <rect x="55" y="204" width="110" height="6" rx="2" fill="url(#ch-neon2)" opacity="0.8"/>
+  <text x="55" y="222" fill="#7b2fff" font-size="7" font-family="monospace">BS.DETECT</text>
+  <rect x="55" y="226" width="135" height="6" rx="2" fill="rgba(0,0,0,0.3)" stroke="#333" stroke-width="0.5"/>
+  <rect x="55" y="226" width="130" height="6" rx="2" fill="#00ffff" opacity="0.8"/>
+  <text x="120" y="252" text-anchor="middle" fill="#00ffff" font-size="7" font-family="monospace" opacity="0.6">[ ONLINE ]</text>
+  <!-- 右側資訊板 -->
+  <rect x="500" y="90" width="170" height="100" rx="8" fill="rgba(123,47,255,0.05)" stroke="#7b2fff" stroke-width="1" opacity="0.9"/>
+  <text x="585" y="113" text-anchor="middle" fill="#7b2fff" font-size="9" font-family="monospace" letter-spacing="1">A.I. INTERFACE</text>
+  <line x1="510" y1="120" x2="660" y2="120" stroke="#7b2fff" stroke-width="0.5" opacity="0.4"/>
+  <text x="515" y="136" fill="#ff00aa" font-size="7" font-family="monospace">INPUT&gt; WORKPLACE</text>
+  <text x="515" y="150" fill="#00ffff" font-size="7" font-family="monospace">OUTPUT&gt; TRUTH</text>
+  <text x="515" y="164" fill="#ff00aa" font-size="7" font-family="monospace">BIAS&gt; NONE</text>
+  <text x="515" y="178" fill="#7b2fff" font-size="7" font-family="monospace">PROCESSING..._</text>
+  <!-- 連接線 -->
+  <line x1="200" y1="200" x2="322" y2="200" stroke="#00ffff" stroke-width="0.8" stroke-dasharray="5 3" opacity="0.4"/>
+  <line x1="500" y1="140" x2="430" y2="170" stroke="#7b2fff" stroke-width="0.8" stroke-dasharray="5 3" opacity="0.4"/>
+  <!-- 底部橫幅 -->
+  <rect x="170" y="360" width="360" height="36" rx="6" fill="rgba(0,255,255,0.05)" stroke="url(#ch-neon1)" stroke-width="1"/>
+  <text x="350" y="383" text-anchor="middle" fill="url(#ch-neon1)" font-size="11" font-family="monospace" letter-spacing="5">AI 驅動的骨頭人生</text>
+  <!-- 浮動粒子 -->
+  <circle cx="80" cy="60" r="2" fill="#00ffff" opacity="0.6" filter="url(#ch-glow)"/>
+  <circle cx="620" cy="40" r="2.5" fill="#7b2fff" opacity="0.7" filter="url(#ch-glow)"/>
+  <circle cx="50" cy="380" r="1.5" fill="#ff00aa" opacity="0.5"/>
+  <circle cx="650" cy="390" r="2" fill="#00ffff" opacity="0.4"/>
+  <circle cx="660" cy="300" r="1.5" fill="#7b2fff" opacity="0.5"/>
+  <circle cx="30" cy="280" r="2" fill="#ff00aa" opacity="0.4"/>
+</svg>
