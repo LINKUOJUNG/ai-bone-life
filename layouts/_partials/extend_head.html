@@ -2,8 +2,12 @@
 <div id="page-load-bar"></div>
 {{ if .IsPage }}<div id="reading-progress-bar"></div>{{ end }}
 
+{{- /* Google AdSense */ -}}
+{{- with site.Params.GoogleAdsense }}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}" crossorigin="anonymous"></script>
+{{- end }}
+
 <script>
-// 文章閱讀進度條
 document.addEventListener('DOMContentLoaded', function () {
   var bar = document.getElementById('reading-progress-bar');
   if (!bar) return;
@@ -14,17 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// 打字機效果（賽博科技游標 — 霓虹青色）
 document.addEventListener('DOMContentLoaded', function () {
   var title = document.querySelector('.az-hero-title, .home-info h1');
   if (!title) return;
-  var lines = title.querySelectorAll('span, br');
   var text = title.textContent.trim();
   title.innerHTML = '';
   var cursor = document.createElement('span');
-  cursor.style.cssText = 'border-right:2px solid #3b82f6;display:inline-block;animation:blink-bright .7s step-end infinite;margin-left:2px';
+  cursor.style.cssText = 'border-right:2px solid #00ffff;display:inline-block;animation:blink-bright .7s step-end infinite;margin-left:2px';
   var style = document.createElement('style');
-  style.textContent = '@keyframes blink-bright{from,to{border-color:transparent}50%{border-color:#3b82f6;box-shadow:0 0 8px rgba(59,130,246,0.6)}}';
+  style.textContent = '@keyframes blink-bright{from,to{border-color:transparent}50%{border-color:#00ffff;box-shadow:0 0 8px rgba(0,255,255,0.6)}}';
   document.head.appendChild(style);
   var i = 0;
   var textNode = document.createTextNode('');

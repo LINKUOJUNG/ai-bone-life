@@ -1,0 +1,321 @@
+{{ define "main" }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --card: #16161f;
+  --border: #1e1e2e;
+  --cyan: #00ffff;
+  --purple: #7b2fff;
+  --pink: #ff00aa;
+  --text: #e0e0e0;
+  --muted: #6b7280;
+}
+body { background: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; }
+a { color: var(--cyan); text-decoration: none; }
+a:hover { color: #fff; }
+
+/* ── Hero ── */
+.toys-hero {
+  position: relative;
+  padding: 80px 24px 60px;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,255,255,0.06) 0%, transparent 60%),
+              linear-gradient(180deg, #0a0a0f 0%, #0f0f1a 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.toys-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
+  pointer-events: none;
+}
+.toys-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.toys-hero p { color: var(--muted); max-width: 600px; margin: 0 auto 28px; font-size: .95rem; }
+.toys-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.toys-stat-n { font-size: 1.8rem; font-weight: 800; color: var(--cyan); }
+.toys-stat-l { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── Controls ── */
+.toys-controls {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 60px;
+  z-index: 50;
+}
+.toys-search {
+  flex: 1; min-width: 200px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); padding: 9px 16px;
+  border-radius: 8px; font-size: .88rem; outline: none;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.toys-search:focus { border-color: var(--cyan); }
+.toys-search::placeholder { color: var(--muted); }
+.f-btn {
+  padding: 8px 16px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card); color: var(--muted);
+  cursor: pointer; font-size: .8rem; font-weight: 500;
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: all .2s;
+}
+.f-btn.active, .f-btn:hover {
+  background: var(--cyan); color: #0a0a0f; border-color: var(--cyan); font-weight: 700;
+}
+.sort-select {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); padding: 8px 12px;
+  border-radius: 8px; font-size: .8rem;
+  font-family: 'Noto Sans TC', sans-serif;
+  cursor: pointer;
+}
+.toys-count { padding: 10px 24px; color: var(--muted); font-size: .8rem; }
+.toys-count strong { color: var(--cyan); }
+
+/* ── Grid ── */
+.toys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px 24px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.t-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .22s, border-color .22s, box-shadow .22s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  position: relative;
+}
+.t-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan);
+  box-shadow: 0 8px 32px rgba(0,255,255,0.12);
+}
+.t-thumb {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f1a1a, #1a0f2e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+.t-thumb .t-emoji { font-size: 3.5rem; line-height: 1; }
+.t-thumb .t-cat { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--cyan); opacity: .8; }
+.t-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  font-size: .62rem; font-weight: 700; padding: 3px 8px;
+  border-radius: 4px; text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.t-badge.plush { background: rgba(255,0,170,.2); color: var(--pink); border: 1px solid rgba(255,0,170,.4); }
+.t-badge.robot { background: rgba(0,255,255,.15); color: var(--cyan); border: 1px solid rgba(0,255,255,.35); }
+.t-badge.chess { background: rgba(123,47,255,.2); color: var(--purple); border: 1px solid rgba(123,47,255,.4); }
+.t-badge.edu { background: rgba(255,184,108,.2); color: #ffb86c; border: 1px solid rgba(255,184,108,.4); }
+.t-hot { position: absolute; top: 10px; right: 10px; z-index: 2; background: #ff5555; color: #fff; font-size: .6rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+.t-overlay {
+  position: absolute; inset: 0; z-index: 3;
+  background: rgba(0,0,0,.5);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.t-card:hover .t-overlay { opacity: 1; }
+.t-overlay span { background: var(--cyan); color: #0a0a0f; font-size: .78rem; font-weight: 700; padding: 8px 18px; border-radius: 6px; }
+
+.t-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+.t-name {
+  font-size: .82rem; font-weight: 600; color: #f0f0f0;
+  line-height: 1.5; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  min-height: 2.4em;
+}
+.t-meta { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.t-store, .t-sales { font-size: .7rem; color: var(--muted); }
+.t-bottom { margin-top: auto; }
+.t-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.t-price { font-size: 1.05rem; font-weight: 800; color: var(--cyan); }
+.t-comm { font-size: .65rem; color: var(--muted); background: rgba(0,255,255,.06); padding: 2px 6px; border-radius: 4px; }
+.t-rate { font-size: .65rem; color: #ffb86c; background: rgba(255,184,108,.08); padding: 2px 6px; border-radius: 4px; }
+.t-btn {
+  display: block; text-align: center;
+  background: linear-gradient(135deg, #ee4d2d, #ff6b4a);
+  color: #fff !important;
+  padding: 10px 0; border-radius: 8px;
+  font-weight: 700; font-size: .8rem;
+  text-decoration: none !important;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(238,77,45,.25);
+}
+.t-btn:hover { box-shadow: 0 4px 16px rgba(238,77,45,.4) !important; color: #fff !important; transform: translateY(-1px); }
+
+.no-results { text-align: center; padding: 80px 24px; color: var(--muted); display: none; }
+.no-results .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+@media(max-width: 600px) {
+  .toys-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+  .t-thumb { height: 130px; }
+  .toys-controls { top: 0; }
+}
+</style>
+
+<div class="toys-hero">
+  <h1>🤖 AI 智能玩具商城</h1>
+  <p>精選優質 AI 玩具，彙整 Shopee / Momo / PChome 最優惠價格。<br>透過連結購買支持我們，價格不變！</p>
+  <div class="toys-stats">
+    <div><div class="toys-stat-n">60+</div><div class="toys-stat-l">精選商品</div></div>
+    <div><div class="toys-stat-n">4</div><div class="toys-stat-l">商品分類</div></div>
+    <div><div class="toys-stat-n">最高 19%</div><div class="toys-stat-l">聯盟分潤</div></div>
+  </div>
+</div>
+
+<div class="toys-controls">
+  <input type="text" class="toys-search" id="searchInput" placeholder="🔍 搜尋商品..." />
+  <button class="f-btn active" data-cat="全部">全部</button>
+  <button class="f-btn" data-cat="毛絨陪伴玩具">🧸 毛絨陪伴</button>
+  <button class="f-btn" data-cat="AI機器人">🤖 AI機器人</button>
+  <button class="f-btn" data-cat="早教學習機">📚 早教學習</button>
+  <button class="f-btn" data-cat="AI棋盤桌遊">♟️ 棋盤桌遊</button>
+  <select class="sort-select" id="sortSelect">
+    <option value="default">預設排序</option>
+    <option value="price-asc">價格 ↑</option>
+    <option value="price-desc">價格 ↓</option>
+    <option value="commission-desc">分潤最高</option>
+    <option value="sales-desc">銷量最高</option>
+  </select>
+</div>
+
+<div class="toys-count" id="resultCount">顯示 <strong>60</strong> 件商品</div>
+<div class="toys-grid" id="productGrid"></div>
+<div class="no-results" id="noResults">
+  <div class="emoji">🔍</div>
+  <div>找不到符合的商品</div>
+</div>
+
+<script>
+const PRODUCTS = [
+  {id:"1",name:"Eilik 情感陪伴機器人",price:4580,store:"AI玩具專賣",rate:"3%",commission:"$137.40",url:"https://s.shopee.tw/XXXXX",emoji:"🤖",cat:"AI機器人",sales:48},
+  {id:"2",name:"Miko 3 兒童教育機器人",price:6980,store:"AI玩具專賣",rate:"2%",commission:"$139.60",url:"https://s.shopee.tw/XXXXX",emoji:"🤖",cat:"AI機器人",sales:32},
+  {id:"3",name:"AI智能五子棋 電子棋盤",price:3499,store:"益智玩具館",rate:"5%",commission:"$175.00",url:"https://s.shopee.tw/XXXXX",emoji:"♟️",cat:"AI棋盤桌遊",sales:156},
+  {id:"4",name:"14合一 AI智能棋盤",price:915,store:"樂貝母嬰",rate:"13%",commission:"$118.95",url:"https://s.shopee.tw/XXXXX",emoji:"♟️",cat:"AI棋盤桌遊",sales:89},
+  {id:"5",name:"AI對話毛絨恐龍 早教機",price:1630,store:"童趣天地",rate:"1%",commission:"$16.30",url:"https://s.shopee.tw/XXXXX",emoji:"🦕",cat:"早教學習機",sales:23},
+  {id:"6",name:"AI智能早教機器人 故事機",price:968,store:"母嬰嚴選",rate:"2%",commission:"$19.36",url:"https://s.shopee.tw/XXXXX",emoji:"📚",cat:"早教學習機",sales:67},
+  {id:"7",name:"Vector AI 智能機器人",price:8880,store:"AI玩具專賣",rate:"3%",commission:"$266.40",url:"https://s.shopee.tw/XXXXX",emoji:"🤖",cat:"AI機器人",sales:15},
+  {id:"8",name:"AI毛絨陪伴兔 智能對話",price:1189,store:"暖心禮品",rate:"1%",commission:"$11.89",url:"https://s.shopee.tw/XXXXX",emoji:"🐰",cat:"毛絨陪伴玩具",sales:41},
+  {id:"9",name:"AI智能鬧鐘 對話助手",price:678,store:"科技生活",rate:"2%",commission:"$13.56",url:"https://s.shopee.tw/XXXXX",emoji:"⏰",cat:"AI機器人",sales:93},
+  {id:"10",name:"口袋電子五子棋 AI對戰",price:313,store:"益智玩具館",rate:"16%",commission:"$50.08",url:"https://s.shopee.tw/XXXXX",emoji:"♟️",cat:"AI棋盤桌遊",sales:204},
+  {id:"11",name:"AI語音問答 情感陪伴機器人",price:519,store:"3C電力",rate:"16%",commission:"$83.04",url:"https://s.shopee.tw/XXXXX",emoji:"🤖",cat:"AI機器人",sales:17},
+  {id:"12",name:"AI小汽車 毛絨智能玩具",price:1292,store:"童趣天地",rate:"1%",commission:"$12.92",url:"https://s.shopee.tw/XXXXX",emoji:"🚗",cat:"毛絨陪伴玩具",sales:8},
+  {id:"13",name:"AI孫悟空 智能毛絨玩具",price:1692,store:"童趣天地",rate:"1%",commission:"$16.92",url:"https://s.shopee.tw/XXXXX",emoji:"🐵",cat:"毛絨陪伴玩具",sales:12},
+  {id:"14",name:"AI智能泰迪狗 機器人",price:3140,store:"科技玩具",rate:"1%",commission:"$31.40",url:"https://s.shopee.tw/XXXXX",emoji:"🐻",cat:"AI機器人",sales:5},
+  {id:"15",name:"寒米AI早教機 智能陪伴",price:991,store:"母嬰嚴選",rate:"1%",commission:"$9.91",url:"https://s.shopee.tw/XXXXX",emoji:"📚",cat:"早教學習機",sales:31},
+  {id:"16",name:"豆包AI對話玩具 早教機",price:1121,store:"AI玩具專賣",rate:"1%",commission:"$11.21",url:"https://s.shopee.tw/XXXXX",emoji:"🤖",cat:"早教學習機",sales:19}
+];
+
+const catBadge = {
+  '毛絨陪伴玩具':{cls:'plush',label:'毛絨陪伴'},
+  'AI機器人':{cls:'robot',label:'AI機器人'},
+  'AI棋盤桌遊':{cls:'chess',label:'棋盤桌遊'},
+  '早教學習機':{cls:'edu',label:'早教學習'}
+};
+
+let currentCat = '全部', currentSearch = '', currentSort = 'default';
+
+function renderProducts() {
+  let list = [...PRODUCTS];
+  if (currentCat !== '全部') list = list.filter(p => p.cat === currentCat);
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  }
+  if (currentSort === 'price-asc') list.sort((a,b) => a.price - b.price);
+  if (currentSort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (currentSort === 'sales-desc') list.sort((a,b) => b.sales - a.sales);
+  if (currentSort === 'commission-desc') {
+    list.sort((a,b) => parseFloat(b.commission.replace('$','')) - parseFloat(a.commission.replace('$','')));
+  }
+
+  const grid = document.getElementById('productGrid');
+  const noRes = document.getElementById('noResults');
+  document.getElementById('resultCount').innerHTML = `顯示 <strong>${list.length}</strong> 件商品`;
+
+  if (!list.length) { grid.innerHTML=''; noRes.style.display='block'; return; }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = list.map(p => {
+    const b = catBadge[p.cat] || {cls:'robot', label:p.cat};
+    const hot = p.sales > 30 ? '<span class="t-hot">🔥 熱銷</span>' : '';
+    return `<a class="t-card" href="${p.url}" target="_blank" rel="noopener">
+  <div class="t-thumb">
+    <span class="t-emoji">${p.emoji}</span>
+    <span class="t-cat">${p.cat}</span>
+    <span class="t-badge ${b.cls}">${b.label}</span>
+    ${hot}
+    <div class="t-overlay"><span>查看詳情</span></div>
+  </div>
+  <div class="t-body">
+    <div class="t-name">${p.name}</div>
+    <div class="t-meta">
+      <span class="t-store">🏪 ${p.store}</span>
+      <span class="t-sales">售出 ${p.sales}</span>
+    </div>
+    <div class="t-bottom">
+      <div class="t-price-row">
+        <span class="t-price">NT$ ${p.price.toLocaleString()}</span>
+        <span class="t-comm">分潤 ${p.commission}</span>
+        <span class="t-rate">${p.rate}</span>
+      </div>
+      <span class="t-btn">🛒 前往購買</span>
+    </div>
+  </div>
+</a>`;
+  }).join('');
+}
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value; renderProducts();
+});
+document.getElementById('sortSelect').addEventListener('change', e => {
+  currentSort = e.target.value; renderProducts();
+});
+document.querySelectorAll('.f-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderProducts();
+  });
+});
+
+renderProducts();
+</script>
+{{ end }}

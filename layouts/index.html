@@ -1,328 +1,296 @@
 {{ define "main" }}
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#12121a;--card:#16161f;--border:#1e1e2e;--cyan:#00ffff;--purple:#7b2fff;--pink:#ff00aa;--text:#e0e0e0;--muted:#6b7280}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif}
+a{color:var(--cyan);text-decoration:none}
+a:hover{color:#fff}
 
-<!-- ══════════ HERO ══════════ -->
-<section class="az-hero">
-  <div class="az-hero-bg-glow az-glow-l"></div>
-  <div class="az-hero-bg-glow az-glow-r"></div>
-  <div class="az-hero-inner">
-    <div class="az-hero-text">
-      <div class="az-hero-badge">💀 骨頭人阿榮 · AI 時代生存指南</div>
-      <h1 class="az-hero-title">
-        在這場 AI 革命，<br>
-        <span class="az-grad-text">用最清醒的眼睛</span><br>
-        看穿所有的謊言
-      </h1>
-      <p class="az-hero-sub">職場黑色幽默 × AI 觀點解析 × 聯盟行銷實戰<br>不談勵志，只談如何在 AI 時代苟延殘喘並且變現</p>
-      <div class="az-hero-btns">
-        <a href="/posts/" class="az-btn-primary">📖 開始閱讀</a>
-        <a href="/shopee/" class="az-btn-shopee">🛒 AI 玩具商城</a>
-        <a href="https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q" target="_blank" class="az-btn-ghost">▶ YouTube</a>
+/* Hero */
+.home-hero{position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(0,255,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(123,47,255,0.06) 0%,transparent 50%),linear-gradient(180deg,#0a0a0f 0%,#0f0a1a 100%);border-bottom:1px solid var(--border)}
+.home-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,255,0.015) 3px,rgba(0,255,255,0.015) 4px);pointer-events:none}
+.home-hero .scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;opacity:.4}
+.home-hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.home-badge{display:inline-block;background:rgba(0,255,255,.1);border:1px solid rgba(0,255,255,.3);color:var(--cyan);font-size:.68rem;font-weight:700;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+.home-title{font-size:clamp(2rem,5vw,3.8rem);font-weight:900;line-height:1.15;margin-bottom:18px;background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-sub{color:var(--muted);font-size:.98rem;line-height:1.85;max-width:600px;margin:0 auto 32px}
+.home-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.home-btn-primary{display:inline-block;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#0a0a0f;font-weight:700;padding:13px 30px;border-radius:10px;font-size:.9rem;text-decoration:none !important;transition:all .2s;box-shadow:0 4px 20px rgba(0,255,255,.25)}
+.home-btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,255,255,.4)!important;color:#0a0a0f!important}
+.home-btn-ghost{display:inline-block;background:transparent;color:var(--text);border:1px solid var(--border);padding:13px 30px;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none !important;transition:all .2s}
+.home-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)!important;box-shadow:0 0 16px rgba(0,255,255,.1)}
+.home-stats{display:flex;gap:32px;justify-content:center;margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+.home-stat{text-align:center}
+.home-stat-n{display:block;font-size:1.8rem;font-weight:800;color:var(--cyan)}
+.home-stat-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* Section */
+.home-section{padding:80px 24px;max-width:1200px;margin:0 auto}
+.home-section-hd{text-align:center;margin-bottom:40px}
+.home-section-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,255,.06);color:var(--cyan);border:1px solid rgba(0,255,255,.2);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:4px 14px;border-radius:20px;margin-bottom:14px}
+.home-section-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;margin-bottom:8px}
+.home-section-sub{color:var(--muted);font-size:.9rem}
+
+/* Featured toys grid */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.featured-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s;text-decoration:none;display:flex;flex-direction:column}
+.featured-card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 12px 40px rgba(0,255,255,.12)}
+.featured-thumb{height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;background:linear-gradient(135deg,#0a1515,#1a0f2e);position:relative}
+.featured-emoji{font-size:3.5rem}
+.featured-cat{font-size:.62rem;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.1em}
+.featured-badge{position:absolute;top:10px;left:10px;background:rgba(0,255,255,.15);color:var(--cyan);border:1px solid rgba(0,255,255,.3);font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:6px}
+.featured-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.featured-name{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.45}
+.featured-desc{color:var(--muted);font-size:.78rem;line-height:1.7;flex:1;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.featured-footer{display:flex;justify-content:space-between;align-items:center}
+.featured-price{color:var(--cyan);font-weight:800;font-size:.95rem}
+.featured-stars{color:#ffb86c;font-size:.72rem}
+
+/* Reviews preview */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:all .25s;text-decoration:none}
+.review-card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 8px 32px rgba(123,47,255,.12)}
+.rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.rev-tags{display:flex;gap:5px}
+.rev-tag{background:rgba(123,47,255,.12);color:var(--purple);border:1px solid rgba(123,47,255,.25);font-size:.62rem;font-weight:600;padding:2px 8px;border-radius:6px}
+.rev-date{font-size:.72rem;color:var(--muted)}
+.rev-title{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.5}
+.rev-excerpt{color:var(--muted);font-size:.8rem;line-height:1.7;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rev-meta{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);padding-top:12px;border-top:1px solid var(--border)}
+.rev-readmore{color:var(--purple)!important;font-weight:600}
+
+/* Categories */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px;transition:all .2s;text-decoration:none}
+.cat-card:hover{border-color:var(--cyan);transform:translateY(-3px);box-shadow:0 6px 24px rgba(0,255,255,.08)}
+.cat-icon{font-size:2rem;flex-shrink:0}
+.cat-card h3{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.cat-card p{font-size:.72rem;color:var(--muted)}
+.cat-arrow{margin-left:auto;color:var(--cyan);font-size:1.1rem;transition:transform .2s}
+.cat-card:hover .cat-arrow{transform:translateX(4px)}
+
+/* Compare table teaser */
+.compare-teaser{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.compare-teaser h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.compare-teaser p{color:var(--muted);font-size:.85rem;line-height:1.7}
+.compare-btn{display:inline-block;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#0a0a0f;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none !important;white-space:nowrap;transition:all .2s}
+.compare-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(123,47,255,.3);color:#0a0a0f!important}
+
+/* CTA */
+.home-cta{text-align:center;padding:80px 24px;background:radial-gradient(ellipse at 50% 100%,rgba(0,255,255,.06) 0%,transparent 60%);border-top:1px solid var(--border)}
+.home-cta h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;margin-bottom:10px}
+.home-cta p{color:var(--muted);font-size:.9rem;margin-bottom:28px}
+.affiliate-note{background:rgba(0,255,255,.04);border:1px solid rgba(0,255,255,.15);border-radius:8px;padding:12px 20px;font-size:.78rem;color:var(--muted);max-width:600px;margin:0 auto;line-height:1.7}
+
+@media(max-width:768px){.compare-teaser{grid-template-columns:1fr}.compare-btn{display:block;text-align:center}}
+@media(max-width:600px){.home-hero{padding:60px 16px 40px}.home-stats{flex-wrap:wrap;gap:20px}}
+</style>
+
+<div class="home-hero">
+  <div class="scanlines"></div>
+  <div class="home-hero-inner">
+    <div class="home-badge">🤖 AI 智能玩具評測站</div>
+    <h1 class="home-title">找到最適合你的<br>AI 智能伙伴</h1>
+    <p class="home-sub">專業評測 Eilik、Miko 3、Vector 等熱門 AI 玩具，幫你用最划算的價格買到最值得的商品。彙整 Shopee / Momo / PChome 全台最優惠價格。</p>
+    <div class="home-btns">
+      <a href="/toys/" class="home-btn-primary">🛒 瀏覽商城</a>
+      <a href="/reviews/" class="home-btn-ghost">📖 閱讀評測</a>
+      <a href="/compare/" class="home-btn-ghost">⚖️ 比較總覽</a>
+    </div>
+    <div class="home-stats">
+      <div class="home-stat"><div class="home-stat-n">60+</div><div class="home-stat-l">精選商品</div></div>
+      <div class="home-stat"><div class="home-stat-n">4</div><div class="home-stat-l">評測文章</div></div>
+      <div class="home-stat"><div class="home-stat-n">3</div><div class="home-stat-l">購物平台</div></div>
+      <div class="home-stat"><div class="home-stat-n">19%</div><div class="home-stat-l">最高分潤</div></div>
+    </div>
+  </div>
+</div>
+
+{{/* 精選商品 */}}
+<section class="home-section">
+  <div class="home-section-hd">
+    <div class="home-section-badge">🛒 精選商城</div>
+    <h2 class="home-section-title">熱門 AI 玩具推薦</h2>
+    <p class="home-section-sub">透過聯盟連結購買，價格不變，但支持我們繼續產出評測內容</p>
+  </div>
+  <div class="featured-grid">
+    <a href="/reviews/eilik/" class="featured-card">
+      <div class="featured-thumb">
+        <span class="featured-emoji">🤖</span>
+        <span class="featured-cat">AI 機器人</span>
+        <span class="featured-badge">🔥 熱銷</span>
       </div>
-      <div class="az-hero-stats">
-        <div class="az-hstat"><span class="az-hstat-n">41+</span><span class="az-hstat-l">深度文章</span></div>
-        <div class="az-hstat-sep"></div>
-        <div class="az-hstat"><span class="az-hstat-n">60</span><span class="az-hstat-l">聯盟商品</span></div>
-        <div class="az-hstat-sep"></div>
-        <div class="az-hstat"><span class="az-hstat-n">100%</span><span class="az-hstat-l">骨頭原味</span></div>
+      <div class="featured-body">
+        <div class="featured-name">Eilik 情感陪伴機器人</div>
+        <div class="featured-desc">表情豐富、超過百種動畫與反應，適合兒童與成人的情感陪伴</div>
+        <div class="featured-footer">
+          <span class="featured-price">NT$4,580</span>
+          <span class="featured-stars">★★★★★</span>
+        </div>
       </div>
-    </div>
-    <div class="az-hero-img">
-      <img src="/images/bright-hero.svg" alt="骨頭人 AI 生存指南" loading="eager">
-    </div>
+    </a>
+    <a href="/reviews/miko-3/" class="featured-card">
+      <div class="featured-thumb">
+        <span class="featured-emoji">📚</span>
+        <span class="featured-cat">AI 教育</span>
+        <span class="featured-badge">✨ 推薦</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-name">Miko 3 兒童教育機器人</div>
+        <div class="featured-desc">完整教育內容系統、AI 對話學習、家長控制功能完善</div>
+        <div class="featured-footer">
+          <span class="featured-price">NT$6,980</span>
+          <span class="featured-stars">★★★★☆</span>
+        </div>
+      </div>
+    </a>
+    <a href="/reviews/ai-chess/" class="featured-card">
+      <div class="featured-thumb">
+        <span class="featured-emoji">♟️</span>
+        <span class="featured-cat">棋盤桌遊</span>
+        <span class="featured-badge">💰 CP值</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-name">14合一 AI 智能棋盤</div>
+        <div class="featured-desc">14種遊戲、9級難度，從五子棋到圍棋全家一起玩</div>
+        <div class="featured-footer">
+          <span class="featured-price">NT$915</span>
+          <span class="featured-stars">★★★★★</span>
+        </div>
+      </div>
+    </a>
+    <a href="/reviews/vector/" class="featured-card">
+      <div class="featured-thumb">
+        <span class="featured-emoji">🔮</span>
+        <span class="featured-cat">AI 助理</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-name">Anki Vector AI 助理機器人</div>
+        <div class="featured-desc">Alexa 整合、視覺辨識、自主導航，功能最完整的桌面 AI</div>
+        <div class="featured-footer">
+          <span class="featured-price">NT$8,880</span>
+          <span class="featured-stars">★★★★☆</span>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:28px">
+    <a href="/toys/" class="home-btn-ghost" style="display:inline-block;text-decoration:none">看全部 60+ 商品 →</a>
   </div>
 </section>
 
-<!-- ══════════ AI 互動工具區（azopet AI 互動工具對標）══════════ -->
-<section class="az-tools-section">
-  <div class="az-section-inner">
-    <div class="az-section-hd">
-      <span class="az-section-badge">🤖 AI 工具</span>
-      <h2 class="az-section-title">骨頭人的 AI 武器庫</h2>
-      <p class="az-section-sub">讓 AI 幫你在職場和生活中更聰明地生存</p>
+{{/* 最新評測 */}}
+<section style="padding:0 24px 80px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="home-section" style="padding-top:80px">
+    <div class="home-section-hd">
+      <div class="home-section-badge">📖 最新評測</div>
+      <h2 class="home-section-title">深度評測報告</h2>
+      <p class="home-section-sub">每一篇都是骨頭人親自研究，不業配，只說真話</p>
     </div>
-    <div class="az-tools-grid">
-      <a href="/posts/35-ai-not-that-smart/" class="az-tool-card az-tool-orange">
-        <div class="az-tool-icon-wrap">
-          <img src="/images/bright-tools.svg" alt="AI 照妖鏡" class="az-tool-img">
+    <div class="reviews-grid">
+      <a href="/reviews/eilik/" class="review-card">
+        <div class="rev-top">
+          <div class="rev-tags"><span class="rev-tag">機器人</span><span class="rev-tag">情感陪伴</span></div>
+          <span class="rev-date">2025/09/17</span>
         </div>
-        <div class="az-tool-label">🔍 AI 觀點</div>
-        <h3>AI 照妖鏡</h3>
-        <p>AI 沒那麼厲害，但你不懂它就慘了。骨頭人幫你看清楚哪些是真實力，哪些是割韭菜。</p>
-        <span class="az-tool-cta">立即閱讀 →</span>
-      </a>
-      <a href="/posts/01-truth-of-traffic-monetization/" class="az-tool-card az-tool-blue">
-        <div class="az-tool-icon-wrap">
-          <img src="/images/ai-tools-visual.svg" alt="變現策略" class="az-tool-img">
-        </div>
-        <div class="az-tool-label">💰 變現策略</div>
-        <h3>流量變現真相</h3>
-        <p>你以為在賺錢，其實只是在幫別人數鈔票？骨頭人直接告訴你轉換的殘忍真相。</p>
-        <span class="az-tool-cta">立即閱讀 →</span>
-      </a>
-      <a href="/shopee/" class="az-tool-card az-tool-shopee">
-        <div class="az-tool-icon-wrap" style="font-size:3rem;display:flex;align-items:center;justify-content:center;height:100px;">🛒</div>
-        <div class="az-tool-label">🎯 每日更新</div>
-        <h3>AI 玩具商城</h3>
-        <p>骨頭人精選 60 件蝦皮 AI 智能玩具，搜尋、篩選、排序，找到最值得買的那一件。</p>
-        <span class="az-tool-cta">進入商城 →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 欄目導覽（azopet 探索欄目對標）══════════ -->
-<section class="az-cats-section">
-  <div class="az-section-inner">
-    <div class="az-section-hd">
-      <span class="az-section-badge">🗂️ 欄目</span>
-      <h2 class="az-section-title">探索骨頭人宇宙</h2>
-      <p class="az-section-sub">六大核心欄目，陪你在 AI 時代活得更清醒</p>
-    </div>
-    <div class="az-cats-grid">
-      <a href="/tags/職場生存/" class="az-cat-card">
-        <div class="az-cat-icon">😤</div>
-        <div>
-          <h3>職場煉獄</h3>
-          <p>老闆大餅 · 加班 · 考績 · 離職潮</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-      <a href="/tags/ai-觀點/" class="az-cat-card">
-        <div class="az-cat-icon">🤖</div>
-        <div>
-          <h3>AI 照妖鏡</h3>
-          <p>AI 裁員 · 割韭菜 · 打字機 · 真相</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-      <a href="/tags/厭世哲學/" class="az-cat-card">
-        <div class="az-cat-icon">💀</div>
-        <div>
-          <h3>厭世哲學</h3>
-          <p>被討厭的勇氣 · 時代 · 忍耐的邊界</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-      <a href="/tags/流量變現/" class="az-cat-card">
-        <div class="az-cat-icon">💰</div>
-        <div>
-          <h3>變現策略</h3>
-          <p>聯盟行銷 · AdSense · 副業收入</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-      <a href="/shopee/" class="az-cat-card">
-        <div class="az-cat-icon">🛒</div>
-        <div>
-          <h3>AI 玩具商城</h3>
-          <p>60 件蝦皮精選 · 最高 19% 分潤</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-      <a href="/about/" class="az-cat-card">
-        <div class="az-cat-icon">🎙️</div>
-        <div>
-          <h3>骨頭人頻道</h3>
-          <p>YouTube · 黑色幽默 · 阿榮觀點</p>
-        </div>
-        <span class="az-cat-arrow">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 照片牆拼貼（azopet 圖片拼貼對標）══════════ -->
-<section class="az-collage-section">
-  <div class="az-collage-inner">
-    <div class="az-collage-img-wrap">
-      <img src="/images/bright-collage.svg" alt="骨頭人三大主題" class="az-collage-img">
-    </div>
-    <div class="az-collage-text">
-      <div class="az-section-badge">💡 骨頭人核心主張</div>
-      <h2>清醒，才是 AI 時代<br>最貴的能力</h2>
-      <p>每個人都在說 AI 很厲害，但很少人告訴你：AI 的邊界在哪裡、它在哪裡會出錯、以及你真正不可替代的核心能力是什麼。</p>
-      <p>骨頭人不賣焦慮，只提供清醒的觀點。</p>
-      <a href="/posts/" class="az-btn-primary" style="display:inline-block;margin-top:16px">探索所有文章 →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 最新文章（azopet 最新影片對標）══════════ -->
-<section class="az-posts-section">
-  <div class="az-section-inner">
-    <div class="az-section-hd">
-      <span class="az-section-badge">📝 最新文章</span>
-      <h2 class="az-section-title">骨頭人最新觀點</h2>
-      <a href="/posts/" class="az-more-link">查看全部 41 篇 →</a>
-    </div>
-    <div class="az-posts-grid">
-      {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
-      <article class="az-post-card">
-        <div class="az-post-card-top">
-          <div class="az-post-tags">
-            {{ range first 2 .Params.tags }}<span class="az-post-tag">{{ . }}</span>{{ end }}
-          </div>
-          <time class="az-post-date">{{ .Date.Format "01/02" }}</time>
-        </div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p>{{ .Description | default (.Summary | truncate 75) }}</p>
-        <div class="az-post-foot">
-          <span>⏱ {{ .ReadingTime }} 分鐘</span>
-          <a href="{{ .RelPermalink }}">閱讀全文 →</a>
-        </div>
-      </article>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 精選卡片（azopet 更多欄目對標）══════════ -->
-<section class="az-featured-section">
-  <div class="az-section-inner">
-    <div class="az-section-hd">
-      <span class="az-section-badge">🔥 精選推薦</span>
-      <h2 class="az-section-title">骨頭人必讀清單</h2>
-      <p class="az-section-sub">這幾篇，值得你反覆咀嚼</p>
-    </div>
-    <div class="az-featured-grid">
-      <a href="/posts/46-ai-layoff-wave/" class="az-feat-card">
-        <div class="az-feat-img">
-          <img src="/images/ai-tools-visual.svg" alt="AI 裁員潮">
-          <div class="az-feat-overlay">
-            <span class="az-feat-badge">AI 觀點</span>
-            <span class="az-feat-time">⏱ 閱讀全文</span>
-          </div>
-        </div>
-        <div class="az-feat-body">
-          <h3>AI 裁員潮，裁的不是你以為的那個人</h3>
-          <p>誰真的會被 AI 取代？真正的答案讓你意外。</p>
+        <div class="rev-title">Eilik 機器人評測：可愛到讓人上癮的情感夥伴</div>
+        <div class="rev-excerpt">Eilik 以靈動的表情、活潑的互動性格與討喜外型脫穎而出。超過百種動畫與反應，適合兒童與成人的情感陪伴。</div>
+        <div class="rev-meta">
+          <span>5 分鐘閱讀</span>
+          <span class="rev-readmore">閱讀全文 →</span>
         </div>
       </a>
-      <a href="/posts/16-workplace-ghost-stories/" class="az-feat-card">
-        <div class="az-feat-img">
-          <img src="/images/workplace-visual.svg" alt="職場鬼故事">
-          <div class="az-feat-overlay">
-            <span class="az-feat-badge">職場生存</span>
-            <span class="az-feat-time">⏱ 閱讀全文</span>
-          </div>
+      <a href="/reviews/miko-3/" class="review-card">
+        <div class="rev-top">
+          <div class="rev-tags"><span class="rev-tag">教育</span><span class="rev-tag">機器人</span></div>
+          <span class="rev-date">2025/08/12</span>
         </div>
-        <div class="az-feat-body">
-          <h3>職場鬼故事：那些比鬼還可怕的人類行為</h3>
-          <p>功勞搶奪鬼、道德綁架鬼——你認識幾種？</p>
-        </div>
-      </a>
-      <a href="/posts/08-boss-painted-pie/" class="az-feat-card">
-        <div class="az-feat-img">
-          <img src="/images/workplace-visual.svg" alt="老闆大餅">
-          <div class="az-feat-overlay">
-            <span class="az-feat-badge">黑色幽默</span>
-            <span class="az-feat-time">⏱ 閱讀全文</span>
-          </div>
-        </div>
-        <div class="az-feat-body">
-          <h3>老闆畫的大餅：一張畫了十年還沒烤熟的圖</h3>
-          <p>大餅的七種口味，你吃過幾種？</p>
+        <div class="rev-title">Miko 3 評測：專為兒童設計的 AI 學習夥伴</div>
+        <div class="rev-excerpt">Miko 3 結合 AI 助理與兒童教育內容，支援對話式學習、故事講解與互動遊戲，適合 5-12 歲兒童。</div>
+        <div class="rev-meta">
+          <span>6 分鐘閱讀</span>
+          <span class="rev-readmore">閱讀全文 →</span>
         </div>
       </a>
-      <a href="/shopee/" class="az-feat-card">
-        <div class="az-feat-img az-feat-shopee-img">
-          <div class="az-feat-shopee-emojis">
-            <span>🤖</span><span>🧸</span><span>♟️</span><span>📚</span>
-          </div>
-          <div class="az-feat-overlay">
-            <span class="az-feat-badge">蝦皮聯盟</span>
-            <span class="az-feat-time">60 件商品</span>
-          </div>
+      <a href="/reviews/vector/" class="review-card">
+        <div class="rev-top">
+          <div class="rev-tags"><span class="rev-tag">助理</span><span class="rev-tag">科技</span></div>
+          <span class="rev-date">2025/07/08</span>
         </div>
-        <div class="az-feat-body">
-          <h3>AI 玩具商城 — 骨頭人精選 60 件</h3>
-          <p>智能陪伴玩具、AI 機器人、早教學習機，最高 19% 分潤。</p>
+        <div class="rev-title">Anki Vector 評測：具備 AI 助理能力的桌面機器人</div>
+        <div class="rev-excerpt">Vector 整合 Alexa 語音助理、物體辨識與活潑個性，是目前功能最完整的 AI 桌面機器人之一。</div>
+        <div class="rev-meta">
+          <span>7 分鐘閱讀</span>
+          <span class="rev-readmore">閱讀全文 →</span>
         </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ══════════ 讀者見證（azopet 見證牆對標）══════════ -->
-<section class="az-testimonial-section">
-  <div class="az-section-inner">
-    <div class="az-testimonial-label">真實讀者回饋</div>
-    <h2 class="az-testimonial-title">他們都清醒了，你呢？</h2>
-    <p class="az-testimonial-sub">每一位讀者的改變，都從「看穿真相」開始</p>
-    <div class="az-testimonial-grid">
-      <div class="az-testi-card">
-        <div class="az-testi-stars">⭐⭐⭐⭐⭐</div>
-        <p class="az-testi-text">「看了骨頭人的老闆大餅，才發現我追了三年那個永遠不熟的餅。現在開始建立副業了，謝謝骨頭人點醒我！」</p>
-        <div class="az-testi-author">
-          <span class="az-testi-avatar">🙋‍♂️</span>
-          <div>
-            <strong>職場骨頭人</strong>
-            <small>台北 · 工程師 · 追餅三年後清醒</small>
-          </div>
-        </div>
+{{/* 分類 */}}
+<section class="home-section">
+  <div class="home-section-hd">
+    <div class="home-section-badge">📂 商品分類</div>
+    <h2 class="home-section-title">依用途找到適合的玩具</h2>
+  </div>
+  <div class="cats-grid">
+    <a href="/toys/" class="cat-card">
+      <span class="cat-icon">🤖</span>
+      <div>
+        <h3>AI 機器人</h3>
+        <p>情感陪伴 / 桌面助理</p>
       </div>
-      <div class="az-testi-card">
-        <div class="az-testi-stars">⭐⭐⭐⭐⭐</div>
-        <p class="az-testi-text">「AI 沒那麼厲害這篇讓我冷靜下來，停止無腦跟風買 AI 課程，省了幾萬塊冤枉錢。骨頭湯確實苦，但有療效。」</p>
-        <div class="az-testi-author">
-          <span class="az-testi-avatar">🙋‍♀️</span>
-          <div>
-            <strong>清醒的骨頭</strong>
-            <small>台中 · 行銷人 · 省下 AI 課程費</small>
-          </div>
-        </div>
+      <span class="cat-arrow">→</span>
+    </a>
+    <a href="/toys/" class="cat-card">
+      <span class="cat-icon">📚</span>
+      <div>
+        <h3>早教學習機</h3>
+        <p>故事機 / AI 對話</p>
       </div>
-      <div class="az-testi-card">
-        <div class="az-testi-stars">⭐⭐⭐⭐⭐</div>
-        <p class="az-testi-text">「AI 玩具商城幫我找到孩子的生日禮物，連結直達蝦皮很方便，而且還有分潤說明，這才叫真材實料的推薦。」</p>
-        <div class="az-testi-author">
-          <span class="az-testi-avatar">👨‍👦</span>
-          <div>
-            <strong>骨頭爸爸</strong>
-            <small>新竹 · 業務 · 找到好禮物</small>
-          </div>
-        </div>
+      <span class="cat-arrow">→</span>
+    </a>
+    <a href="/toys/" class="cat-card">
+      <span class="cat-icon">♟️</span>
+      <div>
+        <h3>AI 棋盤桌遊</h3>
+        <p>五子棋 / 圍棋 / 多合一</p>
       </div>
-      <div class="az-testi-card">
-        <div class="az-testi-stars">⭐⭐⭐⭐⭐</div>
-        <p class="az-testi-text">「離職篇說的太準了。我說了五年要離職，看了這篇終於設了期限。現在跳槽成功，薪水漲了 30%，骨頭人是功臣！」</p>
-        <div class="az-testi-author">
-          <span class="az-testi-avatar">🏃‍♂️</span>
-          <div>
-            <strong>逃跑成功的骨頭</strong>
-            <small>高雄 · 設計師 · 跳槽漲薪 30%</small>
-          </div>
-        </div>
+      <span class="cat-arrow">→</span>
+    </a>
+    <a href="/toys/" class="cat-card">
+      <span class="cat-icon">🧸</span>
+      <div>
+        <h3>毛絨陪伴玩具</h3>
+        <p>AI 對話 / 情感陪伴</p>
       </div>
-    </div>
-    <div class="az-testi-stats">
-      <div class="az-ts"><span class="az-ts-n">41+</span><span class="az-ts-l">深度文章</span></div>
-      <div class="az-ts"><span class="az-ts-n">60</span><span class="az-ts-l">聯盟商品</span></div>
-      <div class="az-ts"><span class="az-ts-n">4.9</span><span class="az-ts-l">平均評分</span></div>
-      <div class="az-ts"><span class="az-ts-n">98%</span><span class="az-ts-l">推薦本站</span></div>
-    </div>
+      <span class="cat-arrow">→</span>
+    </a>
   </div>
 </section>
 
-<!-- ══════════ 底部 CTA（azopet 心靈之旅對標）══════════ -->
-<section class="az-cta-section">
-  <div class="az-cta-img-wrap">
-    <img src="/images/bright-cta.svg" alt="" aria-hidden="true" class="az-cta-bg-img">
-  </div>
-  <div class="az-cta-content">
-    <div class="az-cta-inner">
-      <h2>開始你的骨頭人生存之旅</h2>
-      <p>在這個 AI 時代，清醒才是最值錢的能力。<br>骨頭人的文章都是苦的，但苦才有療效。</p>
-      <div class="az-cta-btns">
-        <a href="/posts/" class="az-btn-primary">📖 開始閱讀</a>
-        <a href="/shopee/" class="az-btn-shopee">🛒 AI 玩具商城</a>
-      </div>
-      <div class="az-cta-socials">
-        <span>跟著骨頭人</span>
-        <a href="https://www.youtube.com/channel/UCbKJABJd9HXFHcQbzJpbx-Q" target="_blank" class="az-social-btn">▶ YouTube</a>
-      </div>
+{{/* 比較總覽預告 */}}
+<section class="home-section" style="padding-top:0">
+  <div class="compare-teaser">
+    <div>
+      <h3>還在猶豫要買哪一個？</h3>
+      <p>我們整理了所有熱門 AI 玩具的完整規格比較表，價格、功能、適合對象一次看完，幫你快速做出決定。</p>
     </div>
+    <a href="/compare/" class="compare-btn">前往比較 →</a>
   </div>
 </section>
 
+{{/* CTA */}}
+<div class="home-cta">
+  <h2>🛒 透過連結購買支持我們</h2>
+  <p>所有聯盟連結不影響你的購買價格，卻能支持骨頭人持續產出評測內容</p>
+  <div class="home-btns" style="justify-content:center">
+    <a href="/toys/" class="home-btn-primary">前往商城</a>
+    <a href="/reviews/" class="home-btn-ghost">閱讀評測</a>
+  </div>
+  <div class="affiliate-note" style="margin-top:24px">
+    ⚠️ 本網站含聯盟行銷連結，透過本網站購買可能獲得分潤，但價格不變。這些收入支持我們持續產出免費評測內容。
+  </div>
+</div>
 {{ end }}

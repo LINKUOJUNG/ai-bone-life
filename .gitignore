@@ -1,0 +1,18 @@
+# Hugo
+.hugo_build.lock
+public/
+resources/
+hugo.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Log
+*.log

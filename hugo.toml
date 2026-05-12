@@ -1,12 +1,13 @@
 baseURL = 'https://ai-bone-life.vercel.app/'
 languageCode = 'zh-tw'
-title = 'AI 驅動的骨頭人生'
+title = 'AI 骨頭人 - 智能玩具評測與聯盟行銷'
 enableRobotsTXT = true
 enableEmoji = true
 summaryLength = 80
 
 [params]
-  description = "在這裡，我們不談勵志，只談如何在這場 AI 的生存遊戲中，用最厭世的姿勢變現。"
+  description = "專業 AI 智能玩具評測網站，精選 Eilik、Miko、Vector 等熱門 AI 玩具，彙整 Shopee / Momo / PChome 最優價格與聯盟連結。"
+  keywords = ["AI玩具", "智能機器人", "AI評測", "Eilik", "Miko", "Vector", "兒童玩具", "陪伴機器人"]
   DateFormat = "2006-01-02"
   ShowReadingTime = true
   ShowShareButtons = true
@@ -14,10 +15,12 @@ summaryLength = 80
   defaultTheme = "dark"
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
+  author = "骨頭人阿榮"
+  GoogleAdsense = "ca-pub-XXXXXXXXXX"
 
 [params.homeInfoParams]
-  Title = "歡迎來到 2026 年的韭菜收割場 💀"
-  Content = "骨頭人阿榮的厭世哲學與 AI 生存指南。不談勵志，只談如何在這場 AI 時代，用最厭世的姿勢苟延殘喘。"
+  Title = "🤖 AI 智能玩具評測站"
+  Content = "精選 AI 智能玩具完整評測，幫你找出最值得入手的伙伴。支援 Shopee、Momo、PChome 聯盟連結。"
 
 [[params.socialIcons]]
   name = "youtube"
@@ -25,30 +28,35 @@ summaryLength = 80
 
 [menu]
   [[menu.main]]
-    identifier = "posts"
-    name = "文章"
-    url = "/posts/"
+    identifier = "home"
+    name = "首頁"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "toys"
+    name = "🛒 AI玩具商城"
+    url = "/toys/"
     weight = 10
   [[menu.main]]
-    identifier = "tags"
-    name = "標籤"
-    url = "/tags/"
+    identifier = "reviews"
+    name = "📖 評測文章"
+    url = "/reviews/"
     weight = 20
   [[menu.main]]
-    identifier = "about"
-    name = "關於我"
-    url = "/about/"
+    identifier = "compare"
+    name = "⚖️ 比較總覽"
+    url = "/compare/"
     weight = 30
   [[menu.main]]
-    identifier = "shopee"
-    name = "🛒 AI玩具商城"
-    url = "/shopee/"
-    weight = 35
+    identifier = "about"
+    name = "關於我們"
+    url = "/about/"
+    weight = 40
   [[menu.main]]
     identifier = "search"
-    name = "搜尋"
+    name = "🔍 搜尋"
     url = "/search/"
-    weight = 40
+    weight = 50
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
