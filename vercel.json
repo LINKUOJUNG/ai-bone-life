@@ -1,5 +1,7 @@
 {
-  "buildCommand": "hugo",
-  "publicDirectory": "public",
-  "installCommand": "npm install -g hugopapermod"
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.146.0"
+    }
+  }
 }
